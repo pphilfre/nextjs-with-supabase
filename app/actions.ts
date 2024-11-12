@@ -4,6 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -35,21 +36,80 @@ export const signUpAction = async (formData: FormData) => {
   }
 };
 
-export const signInAction = async (formData: FormData) => {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+async function CheckIfUser (formData: { user: any; session?: Session; weakPassword?: WeakPassword | undefined; }, supabase: SupabaseClient<any, "public", any>) {
+  const { data, error } = await supabase
+  .from('users')
+  .select()
+  .eq('id', formData.user?.id);
+
+  if (error) {
+    return false;
+  } else {
+    return true;
+  }
+  
+}
+
+export const setupUserAction = async (formData: FormData) => {
+  const firstName = formData.get("first_name") as string;
+  const lastName = formData.get("last_name") as string;
+  const gender = formData.get("gender") as string;
+  const address = formData.get("address") as string;
+  const postcode = formData.get("postcode") as string;
+  const asd = formData.get("last_name") as string;
+  const asd1 = formData.get("first_name") as string;
+  const asd2 = formData.get("last_name") as string;
+
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+  const { data, error } = await supabase.auth.signInWithPassword({
+    asd,
+    asd1,
   });
+  
 
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
   }
 
-  return redirect("/protected");
+  // Check to see if there is a matching user
+
+  if (await CheckIfUser(data, supabase)) {
+    // User does already exist
+    return redirect("/protected");
+  } else {
+    //return redirect("/pageForFirstTimeLogin")
+  }
+
+ 
+};
+
+
+export const signInAction = async (formData: FormData) => {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  
+
+  if (error) {
+    return encodedRedirect("error", "/sign-in", error.message);
+  }
+
+  // Check to see if there is a matching user
+
+  if (await CheckIfUser(data, supabase)) {
+    // User does already exist
+    return redirect("/protected");
+  } else {
+    //return redirect("/pageForFirstTimeLogin")
+  }
+
+ 
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
