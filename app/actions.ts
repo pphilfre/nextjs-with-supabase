@@ -43,7 +43,7 @@ async function CheckIfUser (formData: { user: any; session?: Session; weakPasswo
   .from('users')
   .select()
   .eq('id', formData.user.id)
-
+  console.log("Error: " + error + " Data: " + data)
   if (error || data == null) {
     return false;
   } else {
@@ -99,7 +99,7 @@ export const signInAction = async (formData: FormData) => {
 
   // Check to see if there is a matching user
 
-  if (await CheckIfUser(data, supabase)) {
+  if (await CheckIfUser(data, supabase) == true) {
     // User does already exist
     return redirect("/protected");
   } else {
