@@ -1,4 +1,4 @@
-//import { signInAction } from "@/app/actions";
+import { setupUserAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -25,7 +25,7 @@ export default async function SetupAccount(props: { searchParams: Promise<Messag
         <Input name="phone_number" placeholder="Smith" type="tel" required />
         <Label htmlFor="tutor_group">Tutor Group</Label>
         <Input name="tutor_group" placeholder="AA" required />
-        <SubmitButton pendingText="Signing In..." formAction={""}>
+        <SubmitButton pendingText="Signing In..." formAction={setupUserAction}>
           Sign in
         </SubmitButton>
         <FormMessage message={searchParams} />
