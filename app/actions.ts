@@ -43,7 +43,7 @@ async function CheckIfUser (formData: { user: any; session?: Session; weakPasswo
   .from('users')
   .select()
   .eq('id', formData.user.id)
-  console.log("Error: " + error + " Data: " + data);
+  console.error("Error: " + error + " Data: " + data);
   if (error || data == null) {
     return false;
   } else {
