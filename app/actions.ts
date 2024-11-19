@@ -56,31 +56,26 @@ export const setupUserAction = async (formData: FormData) => {
   const gender = formData.get("gender") as string;
   const address = formData.get("address") as string;
   const postcode = formData.get("postcode") as string;
-  const asd = formData.get("last_name") as string;
-  const asd1 = formData.get("first_name") as string;
-  const asd2 = formData.get("last_name") as string;
+  const phoneNumber = formData.get("phone_number") as string;
+  const tutorGroup = formData.get("tutor_group") as string;
 
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    asd,
-    asd1,
-  });
+  // Get the logged in user
+  const { data: { user } } = await supabase.auth.getUser()
+
+
+  var userId = user?.id;
+
+  // Update values
+  const { error } = await supabase
+  .from('users')
+  .insert({ id: userId, first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup})
+   
   
-
   if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    return encodedRedirect("error", "/account-setup", error.message);
   }
-
-  // Check to see if there is a matching user
-
-  if (await CheckIfUser(data, supabase)) {
-    // User does already exist
-    return redirect("/protected");
-  } else {
-    //return redirect("/pageForFirstTimeLogin")
-  }
-
  
 };
 
@@ -106,7 +101,7 @@ export const signInAction = async (formData: FormData) => {
     // User does already exist
     return redirect("/protected");
   } else {
-    //return redirect("/pageForFirstTimeLogin")
+    return redirect("/account-setup")
   }
 
  
