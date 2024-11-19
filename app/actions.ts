@@ -37,12 +37,14 @@ export const signUpAction = async (formData: FormData) => {
 };
 
 async function CheckIfUser (formData: { user: any; session?: Session; weakPassword?: WeakPassword | undefined; }, supabase: SupabaseClient<any, "public", any>) {
-  const { data, error } = await supabase
+  // Check to see if the user exists
+  
+  const {data, error } = await supabase
   .from('users')
   .select()
-  .eq('id', formData.user?.id);
+  .eq('id', formData.user.id)
 
-  if (error) {
+  if (error || data == null) {
     return false;
   } else {
     return true;
