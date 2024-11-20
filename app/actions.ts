@@ -79,7 +79,7 @@ export const setupUserAction = async (formData: FormData) => {
   // Update the value
   const {error} = await supabase
   .from("users")
-  .update({first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup})
+  .update({first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup, isSetup: true})
   .eq('id', userId);
    
   
