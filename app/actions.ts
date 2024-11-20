@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
+import { data } from "autoprefixer";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -38,17 +39,20 @@ export const signUpAction = async (formData: FormData) => {
 
 async function CheckIfUser (formData: { user: any; session?: Session; weakPassword?: WeakPassword | undefined; }, supabase: SupabaseClient<any, "public", any>) {
   // Check to see if the user exists
-  
-  const {data, error } = await supabase
-  .from('users')
-  .select()
-  .eq('id', formData.user.id)
-  console.error("Error: " + error + " Data: " + data);
-  if (error || data == null) {
-    return false;
-  } else {
-    return true;
+  const { data, error } = await supabase
+    .from('users') // Use the 'users' table
+    .select('isSetup') // Select the 'isSetup' column
+    .eq('id', formData.user.id) // Filter by the specific user ID
+    .single(); // Use .single() to get a single row
+
+  if (error) {
+    console.error('Error fetching data:', error);
+    return false; // Return false or handle error as needed
   }
+
+  // Check if data is not null and return the boolean value
+  return data ? data.isSetup : false; // Return false if no data found
+  
   
 }
 
@@ -100,7 +104,7 @@ export const signInAction = async (formData: FormData) => {
   // Check to see if there is a matching user
 
   if (await CheckIfUser(data, supabase) == true) {
-    // User does already exist
+    // User is setup
     return redirect("/protected");
   } else {
     return redirect("/account-setup")
