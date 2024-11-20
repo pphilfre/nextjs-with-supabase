@@ -57,6 +57,8 @@ async function CheckIfUser (formData: { user: any; session?: Session; weakPasswo
 }
 
 export const setupUserAction = async (formData: FormData) => {
+  
+  // Getting all the fields
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
   const gender = formData.get("gender") as string;
@@ -73,14 +75,18 @@ export const setupUserAction = async (formData: FormData) => {
 
   var userId = user?.id;
 
-  // Update values
-  const { error } = await supabase
-  .from('users')
-  .insert({ id: userId, first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup})
+
+  // Update the value
+  const {error} = await supabase
+  .from("users")
+  .update({first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phoneNumber: phoneNumber, tutorGroup: tutorGroup})
+  .eq('id', userId);
    
   
   if (error) {
     return encodedRedirect("error", "/account-setup", error.message);
+  } else {
+    redirect("/protected");
   }
  
 };
