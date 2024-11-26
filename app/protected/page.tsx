@@ -1,4 +1,8 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+import { signInAction } from "@/app/actions";
+import { FormMessage, Message } from "@/components/form-message";
+import { SubmitButton } from "@/components/submit-button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -13,7 +17,6 @@ export default async function ProtectedPage() {
   if (!user) {
     return redirect("/sign-in");
   }
-
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
@@ -29,9 +32,30 @@ export default async function ProtectedPage() {
           {JSON.stringify(user, null, 2)}
         </pre>
       </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Create new student</h2>
+        <form className="flex-1 flex flex-col min-w-64">
+          <h1 className="text-2xl font-medium">Sign in</h1>
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <Label htmlFor="first_name">First Name</Label>
+            <Input name="first_name" placeholder="" required />
+            <Label htmlFor="last_name">First Name</Label>
+            <Input name="last_name" placeholder="" required />
+            <div className="flex justify-between items-center">
+              <Label htmlFor="password">Password</Label>
+            </div>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Your password"
+              required
+            />
+            <SubmitButton pendingText="Signing In..." formAction={signInAction}>
+              Sign in
+            </SubmitButton>
+            
+          </div>
+      </form>
       </div>
     </div>
   );
