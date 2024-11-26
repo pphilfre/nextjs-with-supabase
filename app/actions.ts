@@ -94,8 +94,15 @@ export const createStudentAction = async (formData: FormData) => {
     .from("students")
     .insert([
       { 
-        first_name: firstName, last_name: lastName, email: email, password: password, date_of_birth: date_of_birth, 
-        address: address, phone_number: phone_number, tutor_group: tutor_group, gender: gender 
+        first_name: firstName, 
+        last_name: lastName, 
+        email: email, 
+        password: password, 
+        date_of_birth: date_of_birth, 
+        address: address, 
+        phone_number: phone_number, 
+        tutor_group: tutor_group, 
+        gender: gender 
       }
     ]);
   if (error) {
