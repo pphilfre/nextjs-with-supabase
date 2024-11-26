@@ -1,4 +1,4 @@
-import { signInAction } from "@/app/actions";
+import { createStudentAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,9 @@ import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
-export default async function ProtectedPage() {
+export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
+  const searchParams = await props.searchParams;
+  
   const supabase = await createClient();
 
   const {
@@ -39,16 +41,16 @@ export default async function ProtectedPage() {
             <div className="flex gap-4">
               <div className="flex flex-col">
                 <label htmlFor="firstName" className="text-sm font-medium">First Name</label>
-                <input type="text" id="firstName" className="p-2 border rounded" />
+                <input type="text" id="firstName" className="p-2 border rounded" required />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="lastName" className="text-sm font-medium">Last Name</label>
-                <input type="text" id="lastName" className="p-2 border rounded" />
+                <input type="text" id="lastName" className="p-2 border rounded" required />
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="password" className="text-sm font-medium">Student Password</label>
-              <input type="password" id="password" className="p-2 border rounded" />
+              <input type="password" id="password" className="p-2 border rounded" required />
             </div>
             <div className="flex flex-col">
               <label htmlFor="gender" className="text-sm font-medium">Gender</label>
@@ -61,20 +63,24 @@ export default async function ProtectedPage() {
             </div>
             <div className="flex flex-col">
               <label htmlFor="dob" className="text-sm font-medium">Date of Birth</label>
-              <input type="date" id="dob" className="p-2 border rounded" />
+              <input type="date" id="dob" className="p-2 border rounded" required />
             </div>
             <div className="flex flex-col">
               <label htmlFor="address" className="text-sm font-medium">Address</label>
-              <input type="text" id="address" className="p-2 border rounded" />
+              <input type="text" id="address" className="p-2 border rounded" required />
             </div>
             <div className="flex flex-col">
               <label htmlFor="tutorGroup" className="text-sm font-medium">Tutor Group</label>
-              <input type="text" id="tutorGroup" className="p-2 border rounded" />
+              <input type="text" id="tutorGroup" className="p-2 border rounded" required />
             </div>
             <div className="flex flex-col">
               <label htmlFor="parentPhone" className="text-sm font-medium">Parent Phone Number</label>
-              <input type="tel" id="parentPhone" className="p-2 border rounded" />
+              <input type="tel" id="parentPhone" className="p-2 border rounded" required />
             </div>
+            <SubmitButton pendingText="Working..." formAction={createStudentAction}>
+              Setup Student
+            </SubmitButton>
+            <FormMessage message={searchParams} />
             <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">Submit</button>
           </div>
         </form>

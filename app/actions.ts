@@ -56,6 +56,56 @@ async function CheckIfUser (formData: { user: any; session?: Session; weakPasswo
   
 }
 
+export const createStudentAction = async (formData: FormData) => {
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const password = formData.get("password") as string;
+  const date_of_birth = formData.get("dob") as string;
+  const address = formData.get("address") as string;
+  const phone_number = formData.get("parentPhone") as string;
+  const gender = formData.get("gender") as string;
+  const tutor_group = formData.get("tutorGroup") as string;
+
+  const supabase = await createClient();
+
+  // generate an email for them
+
+  var lastNameShort = lastName.substring(0, 4);
+  var firstNameShort = firstName.substring(0, 4);
+
+  var email = tutor_group + lastNameShort + firstNameShort + "@student.com";
+
+  // check if the email already exists
+
+  const { data: users, error: err } = await supabase
+    .from("students")
+    .select("email")
+    .eq("email", email);
+
+  if (users != null) {
+    // email already exists
+      email = tutor_group + lastNameShort + firstNameShort + "1" + "@student.com";
+  }
+  
+  // create the user
+
+  // insert the values into the table using supabase insert
+  const { error } = await supabase
+    .from("students")
+    .insert([
+      { 
+        first_name: firstName, last_name: lastName, email: email, password: password, date_of_birth: date_of_birth, 
+        address: address, phone_number: phone_number, tutor_group: tutor_group, gender: gender 
+      }
+    ]);
+  if (error) {
+    return encodedRedirect("error", "/protected", error.message);
+  } else {
+    return encodedRedirect("success", "/protected", "Student created successfully");
+  }
+
+}
+
 export const setupUserAction = async (formData: FormData) => {
   
   // Getting all the fields
