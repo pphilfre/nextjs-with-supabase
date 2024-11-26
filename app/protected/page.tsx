@@ -35,46 +35,49 @@ export default async function ProtectedPage() {
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Create new student</h2>
         <form className="flex-1 flex flex-col min-w-64">
-            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-              <div className="flex gap-4">
-                <div className="flex flex-col">
-                  <Label htmlFor="first_name">First Name</Label>
-                  <Input name="first_name" placeholder="" required />
-                </div>
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <div className="flex gap-4">
               <div className="flex flex-col">
-                <Label htmlFor="last_name">Last Name</Label>
-                <Input name="last_name" placeholder="" required />
+                <label htmlFor="firstName" className="text-sm font-medium">First Name</label>
+                <input type="text" id="firstName" className="p-2 border rounded" />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="lastName" className="text-sm font-medium">Last Name</label>
+                <input type="text" id="lastName" className="p-2 border rounded" />
               </div>
             </div>
+            <div className="flex flex-col">
+              <label htmlFor="password" className="text-sm font-medium">Student Password</label>
+              <input type="password" id="password" className="p-2 border rounded" />
             </div>
-            <div className="flex justify-between items-center">
-              <Label htmlFor="password">Student Password</Label>
+            <div className="flex flex-col">
+              <label htmlFor="gender" className="text-sm font-medium">Gender</label>
+              <select id="gender" className="p-2 border rounded">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
             </div>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Student's password"
-              required
-              defaultValue="student1"
-            />
-            <br/>
-            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-              <div className="flex gap-4">
-                <div className="flex flex-col">
-                  <Label htmlFor="date_of_birth">Date of Birth</Label>
-                  <Input name="date_of_birth" placeholder="dd/mm/yyyy" type="date" required />
-                </div>
-              <div className="flex flex-col">
-                <Label htmlFor="last_name">Gender</Label>
-                <Input name="last_name" placeholder="" required />
-              </div>
+            <div className="flex flex-col">
+              <label htmlFor="dob" className="text-sm font-medium">Date of Birth</label>
+              <input type="date" id="dob" className="p-2 border rounded" />
             </div>
-            <SubmitButton pendingText="Signing In..." formAction={signInAction}>
-              Sign in
-            </SubmitButton>
-            
+            <div className="flex flex-col">
+              <label htmlFor="address" className="text-sm font-medium">Address</label>
+              <input type="text" id="address" className="p-2 border rounded" />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="tutorGroup" className="text-sm font-medium">Tutor Group</label>
+              <input type="text" id="tutorGroup" className="p-2 border rounded" />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="parentPhone" className="text-sm font-medium">Parent Phone Number</label>
+              <input type="tel" id="parentPhone" className="p-2 border rounded" />
+            </div>
+            <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">Submit</button>
           </div>
-      </form>
+        </form>
       </div>
     </div>
   );
