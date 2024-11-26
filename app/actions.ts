@@ -89,27 +89,38 @@ export const createStudentAction = async (formData: FormData) => {
   
   // create the user
 
-  // insert the values into the table using supabase insert
+  /*
+   email text null,
+    password text null,
+    first_name text null,
+    last_name text null,
+    date_of_birth text null,
+    address text null,
+    phone_number text null,
+    gender text null,
+    tutor_group text null,
+  */
+
   const { error } = await supabase
-    .from("students")
-    .insert([
-      { 
-        first_name: firstName, 
-        last_name: lastName, 
-        email: email, 
-        password: password, 
-        date_of_birth: date_of_birth, 
-        address: address, 
-        phone_number: phone_number, 
-        tutor_group: tutor_group, 
-        gender: gender 
-      }
-    ]);
-  if (error) {
-    return encodedRedirect("error", "/protected", error.message);
-  } else {
-    return encodedRedirect("success", "/protected", "Student created successfully");
-  }
+  .from("students")
+  .insert([
+    { 
+      first_name: firstName, 
+      last_name: lastName, 
+      email: email, 
+      password: password, 
+      date_of_birth: date_of_birth, 
+      address: address, 
+      phone_number: phone_number, 
+      tutor_group: tutor_group, 
+      gender: gender 
+    }
+  ]);
+
+if (error) {
+  console.error("Error inserting student:", error);
+  return encodedRedirect("error", "/protected", error.message);
+}
 
 }
 

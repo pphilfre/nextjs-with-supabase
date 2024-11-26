@@ -77,11 +77,10 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               <label htmlFor="parentPhone" className="text-sm font-medium">Parent Phone Number</label>
               <input type="tel" id="parentPhone" className="p-2 border rounded" required />
             </div>
-            <SubmitButton pendingText="Working..." formAction={createStudentAction}>
+            <SubmitButton pendingText="Working..." className="mt-4 p-2 bg-blue-500 text-white rounded" formAction={createStudentAction}>
               Setup Student
             </SubmitButton>
             <FormMessage message={searchParams} />
-            <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">Submit</button>
           </div>
         </form>
       </div>
