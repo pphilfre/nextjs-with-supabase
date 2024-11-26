@@ -35,12 +35,18 @@ export default async function ProtectedPage() {
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Create new student</h2>
         <form className="flex-1 flex flex-col min-w-64">
-          <h1 className="text-2xl font-medium">Sign in</h1>
-          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <h1 className="text-2xl font-medium">Sign in</h1>
+            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <div className="flex gap-4">
+          <div className="flex flex-col">
             <Label htmlFor="first_name">First Name</Label>
             <Input name="first_name" placeholder="" required />
-            <Label htmlFor="last_name">First Name</Label>
+          </div>
+          <div className="flex flex-col">
+            <Label htmlFor="last_name">Last Name</Label>
             <Input name="last_name" placeholder="" required />
+          </div>
+        </div>
             <div className="flex justify-between items-center">
               <Label htmlFor="password">Password</Label>
             </div>
