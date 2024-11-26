@@ -6,7 +6,6 @@ import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 export default function Home() {
   return (
     <div>
-      
       <div>
                     <header className="flex justify-between items-center p-4 bg-white shadow-md">
                         <div className="text-blue-700 text-lg font-bold">Logo</div>
