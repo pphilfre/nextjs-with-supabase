@@ -16,7 +16,14 @@ export default async function SetupAccount(props: { searchParams: Promise<Messag
         <Label htmlFor="last_name">Last Name</Label>
         <Input name="last_name" placeholder="Smith" required />
         <Label htmlFor="gender">Gender</Label>
-        <Input name="gender" placeholder="" required />
+        <select name="gender" className="p-2 border rounded">
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="non-binary">Non-binary</option>
+              <option value="prefer-not-to-say">Prefer not to say</option>
+              <option value="other">Other</option>
+            </select>
         <Label htmlFor="address">Address</Label>
         <Input name="address" placeholder="10 Road Name" required />
         <Label htmlFor="postcode">Postcode</Label>
