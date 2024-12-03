@@ -10,6 +10,7 @@ export default async function createStudent(props: { searchParams: Promise<Messa
   return (
     <div className="flex flex-col gap-2 items-start">
     <h2 className="font-bold text-2xl mb-4">Create new student</h2>
+    <h3 className="font-bold text-xl mb-4">Create new student</h3>
     <form className="flex-1 flex flex-col min-w-64">
       <div className="flex flex-col gap-2 [&>Input]:mb-3 mt-8">
         <div className="flex gap-4">
