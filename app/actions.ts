@@ -125,6 +125,8 @@ export const createStudentAction = async (formData: FormData) => {
 if (error) {
   console.error("Error inserting student:", error);
   return encodedRedirect("error", "/create-student", error.message);
+} else {
+  return encodedRedirect("success", "/create-student", "Student created successfully");
 }
 
 }

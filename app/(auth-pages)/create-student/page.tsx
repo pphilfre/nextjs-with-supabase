@@ -24,7 +24,7 @@ export default async function createStudent(props: { searchParams: Promise<Messa
         </div>
         <div className="flex flex-col">
           <Label htmlFor="password" className="text-sm font-medium">Student Password</Label>
-          <Input type="password" name="password" className="p-2 border rounded" required />
+          <Input type="password" name="password" placeholder="password" minLength={8} className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="gender" className="text-sm font-medium">Gender</Label>
@@ -37,7 +37,7 @@ export default async function createStudent(props: { searchParams: Promise<Messa
         </div>
         <div className="flex flex-col">
           <Label htmlFor="dob" className="text-sm font-medium">Date of Birth</Label>
-          <Input type="date" name="dob" className="p-2 border rounded" required />
+          <Input type="date" name="dob" max="2023-01-01" min="1995-01-01" className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="address" className="text-sm font-medium">Address</Label>
