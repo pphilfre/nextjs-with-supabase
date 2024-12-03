@@ -37,7 +37,7 @@ export const signUpAction = async (formData: FormData) => {
   }
 };
 
-async function CheckIfUser (formData: { user: any; session?: Session; weakPassword?: WeakPassword | undefined; }, supabase: SupabaseClient<any, "public", any>) {
+async function CheckIfUser(formData: { user: any; session?: Session; weakPassword?: WeakPassword | undefined; }, supabase: SupabaseClient<any, "public", any>) {
   // Check to see if the user exists
   const { data, error } = await supabase
     .from('users') // Use the 'users' table
@@ -52,8 +52,8 @@ async function CheckIfUser (formData: { user: any; session?: Session; weakPasswo
 
   // Check if data is not null and return the boolean value
   return data ? data.isSetup : false; // Return false if no data found
-  
-  
+
+
 }
 
 export const createStudentAction = async (formData: FormData) => {
@@ -89,9 +89,9 @@ export const createStudentAction = async (formData: FormData) => {
 
   if (users != null) {
     // email already exists
-      email = tutor_group + lastNameShort + firstNameShort + "1" + "@student.com";
+    email = tutor_group + lastNameShort + firstNameShort + "1" + "@student.com";
   }
-  
+
   // create the user
 
   /*
@@ -107,30 +107,32 @@ export const createStudentAction = async (formData: FormData) => {
   */
 
   const { error } = await supabase
-  .from("students")
-  .insert([
-    { 
-      first_name: firstName, 
-      last_name: lastName, 
-      email: email, 
-      password: password, 
-      date_of_birth: date_of_birth, 
-      address: address, 
-      phone_number: phone_number, 
-      tutor_group: tutor_group, 
-      gender: gender 
-    }
-  ]);
+    .from("students")
+    .insert([
+      {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        date_of_birth: date_of_birth,
+        address: address,
+        phone_number: phone_number,
+        tutor_group: tutor_group,
+        gender: gender
+      }
+    ]);
 
-if (error) {
-  console.error("Error inserting student:", error);
-  return encodedRedirect("error", "/create-student", error.message);
-}
+  if (error) {
+    console.error("Error inserting student:", error);
+    return encodedRedirect("error", "/create-student", error.message);
+  } else {
+    return encodedRedirect("success", "/create-student", "Student created successfully");
+  }
 
 }
 
 export const setupUserAction = async (formData: FormData) => {
-  
+
   // Getting all the fields
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
@@ -150,18 +152,18 @@ export const setupUserAction = async (formData: FormData) => {
 
 
   // Update the value
-  const {error} = await supabase
-  .from("users")
-  .update({first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup, isSetup: true})
-  .eq('id', userId);
-   
-  
+  const { error } = await supabase
+    .from("users")
+    .update({ first_name: firstName, last_name: lastName, gender: gender, address: address, postcode: postcode, phone_number: phoneNumber, tutor_group: tutorGroup, isSetup: true })
+    .eq('id', userId);
+
+
   if (error) {
     return encodedRedirect("error", "/account-setup", error.message);
   } else {
     redirect("/protected");
   }
- 
+
 };
 
 
@@ -174,7 +176,7 @@ export const signInAction = async (formData: FormData) => {
     email,
     password,
   });
-  
+
 
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
@@ -189,7 +191,7 @@ export const signInAction = async (formData: FormData) => {
     return redirect("/account-setup")
   }
 
- 
+
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
