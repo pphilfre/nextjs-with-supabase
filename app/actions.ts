@@ -66,6 +66,11 @@ export const createStudentAction = async (formData: FormData) => {
   const gender = formData.get("gender") as string;
   const tutor_group = formData.get("tutorGroup") as string;
 
+  if (firstName == null || lastName == null || password == null || date_of_birth == null || address == null || phone_number == null) {
+    return encodedRedirect("error", "/create-student", "All fields are required");
+  }
+
+
   const supabase = await createClient();
 
   // generate an email for them
