@@ -16,20 +16,20 @@ export default async function createStudent(props: { searchParams: Promise<Messa
         <div className="flex gap-4">
           <div className="flex flex-col">
             <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
-            <Input type="text" id="firstName" className="p-2 border rounded" required />
+            <Input type="text" name="firstName" className="p-2 border rounded" required />
           </div>
           <div className="flex flex-col">
             <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
-            <Input type="text" id="lastName" className="p-2 border rounded" required />
+            <Input type="text" name="lastName" className="p-2 border rounded" required />
           </div>
         </div>
         <div className="flex flex-col">
           <Label htmlFor="password" className="text-sm font-medium">Student Password</Label>
-          <Input type="password" id="password" className="p-2 border rounded" required />
+          <Input type="password" name="password" className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="gender" className="text-sm font-medium">Gender</Label>
-          <select id="gender" className="p-2 border rounded">
+          <select name="gender" className="p-2 border rounded">
             <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -38,19 +38,19 @@ export default async function createStudent(props: { searchParams: Promise<Messa
         </div>
         <div className="flex flex-col">
           <Label htmlFor="dob" className="text-sm font-medium">Date of Birth</Label>
-          <Input type="date" id="dob" className="p-2 border rounded" required />
+          <Input type="date" name="dob" className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="address" className="text-sm font-medium">Address</Label>
-          <Input type="text" id="address" className="p-2 border rounded" required />
+          <Input type="text" name="address" className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="tutorGroup" className="text-sm font-medium">Tutor Group</Label>
-          <Input type="text" id="tutorGroup" className="p-2 border rounded" required />
+          <Input type="text" name="tutorGroup" className="p-2 border rounded" required />
         </div>
         <div className="flex flex-col">
           <Label htmlFor="parentPhone" className="text-sm font-medium">Parent Phone Number</Label>
-          <Input type="tel" id="parentPhone" className="p-2 border rounded" required />
+          <Input type="tel" name="parentPhone" className="p-2 border rounded" required />
         </div>
         <SubmitButton pendingText="Working..." className="mt-4 p-2 bg-blue-500 text-white rounded" formAction={createStudentAction}>
           Setup Student
