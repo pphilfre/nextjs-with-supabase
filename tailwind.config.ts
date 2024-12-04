@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss";
+import { Config } from 'tailwindcss';
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -27,6 +27,17 @@ const config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          "50": "#eff6ff",
+          "100": "#dbeafe",
+          "200": "#bfdbfe",
+          "300": "#93c5fd",
+          "400": "#60a5fa",
+          "500": "#3b82f6",
+          "600": "#2563eb",
+          "700": "#1d4ed8",
+          "800": "#1e40af",
+          "900": "#1e3a8a",
+          "950": "#172554"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -60,12 +71,12 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          "0%": { transform: "scaleY(0)" },
+          "100%": { transform: "scaleY(1)" }
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          "0%": { transform: "scaleY(1)" },
+          "100%": { transform: "scaleY(0)" }
         },
       },
       animation: {
