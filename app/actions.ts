@@ -10,12 +10,18 @@ import { data } from "autoprefixer";
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
+  const confirmPassword = formData.get("confirmPassword")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
   if (!email || !password) {
     return { error: "Email and password are required" };
   }
+
+  if (password !== confirmPassword) {
+    return encodedRedirect("error", "/sign-up", "Passwords do not match");
+  }
+
 
   const { error } = await supabase.auth.signUp({
     email,

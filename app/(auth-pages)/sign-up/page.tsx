@@ -39,6 +39,14 @@ export default async function Signup(props: {
             minLength={6}
             required
           />
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="Your password"
+            minLength={6}
+            required
+          />
           <SubmitButton formAction={signUpAction} pendingText="Signing up...">
             Sign up
           </SubmitButton>
