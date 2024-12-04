@@ -3,10 +3,21 @@ import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function createStudent(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
+  const supabase = await createClient();
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  
   return (
     <div className="flex flex-col gap-2 items-start">
       <h3 className="font-bold text-xl mb-4">Create new student</h3>
