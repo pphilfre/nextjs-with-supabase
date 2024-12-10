@@ -21,7 +21,7 @@ export const getUsersAction = async() => {
   
 }
 
-export const deleteStudent = async(id: any) => {
+export const deleteStudent = async(id: string) => {
   const supabase = await createClient();
   const { error } = await supabase
     .from('students')
