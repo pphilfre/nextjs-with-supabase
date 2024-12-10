@@ -7,6 +7,22 @@ import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 import { data } from "autoprefixer";
 
+
+export const getUsersAction = async() => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('students')
+    .select();
+
+    if (error)
+      return { error: error.message }
+    else
+      return { props: { data } };
+  
+}
+
+
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();

@@ -1,12 +1,16 @@
 
 import { FormMessage, Message } from "@/components/form-message";
+import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
-  
+  const registeredUsers = await getUsersAction();
+  if (registeredUsers == null) {
+    console.log("No users found");
+  }
   const supabase = await createClient();
 
   const {
@@ -31,6 +35,26 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
           {JSON.stringify(user, null, 2)}
         </pre>
       </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {registeredUsers.props?.data.map(item => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.first_name} {item.last_name} </td>
+              <td>Edit | Delete</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 }
