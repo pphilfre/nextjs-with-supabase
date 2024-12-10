@@ -55,7 +55,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               <td>{item.tutor_group}</td>
               <td>
                 <button>Edit</button>
-                <button onClick={deleteStudent}>Delete</button>
+                <button onClick={() => deleteStudent(item.id)}>Delete</button>
               </td>
             </tr>
           ))}
