@@ -40,7 +40,9 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Tutor Group</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -49,6 +51,8 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.first_name} {item.last_name} </td>
+              <td>{item.gender}</td>
+              <td>{item.tutor_group}</td>
               <td>Edit | Delete</td>
             </tr>
           ))}
