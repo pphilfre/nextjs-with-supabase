@@ -1,9 +1,9 @@
-
 import { FormMessage, Message } from "@/components/form-message";
-import { getUsersAction, deleteStudent } from "@/app/actions";
+import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import DeleteButton from './deleteButton';
 
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -20,6 +20,25 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   if (!user) {
     return redirect("/sign-in");
   }
+
+  const handleDelete = async (id: string) => {
+    const response = await fetch('/api/deleteStudent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (response.ok) {
+      // Handle successful deletion (e.g., refresh the list of users)
+    } else {
+      // Handle error
+      const errorData = await response.json();
+      console.error('Error deleting student:', errorData.error);
+    }
+  };
+
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
@@ -55,7 +74,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               <td>{item.tutor_group}</td>
               <td>
                 <button>Edit</button>
-                <button onClick={async () => await deleteStudent(item.id)}>Delete</button>
+                <DeleteButton id={item.id} onDelete={handleDelete} />
               </td>
             </tr>
           ))}
