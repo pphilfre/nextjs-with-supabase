@@ -21,7 +21,18 @@ export const getUsersAction = async() => {
   
 }
 
+export const deleteStudent = async(id: any) => {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from('students')
+    .delete()
+    .eq('id', id);
 
+  if (error)
+    return { error: error.message }
+  else
+    return { success: true };
+}
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();

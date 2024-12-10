@@ -1,6 +1,6 @@
 
 import { FormMessage, Message } from "@/components/form-message";
-import { getUsersAction } from "@/app/actions";
+import { getUsersAction, deleteStudent } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -53,7 +53,10 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               <td>{item.first_name} {item.last_name} </td>
               <td>{item.gender}</td>
               <td>{item.tutor_group}</td>
-              <td>Edit | Delete</td>
+              <td>
+                <button>Edit</button>
+                <button onClick={deleteStudent}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
