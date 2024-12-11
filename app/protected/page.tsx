@@ -55,32 +55,6 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
         </pre>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Gender</th>
-            <th>Tutor Group</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {registeredUsers.props?.data.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.first_name} {item.last_name} </td>
-              <td>{item.gender}</td>
-              <td>{item.tutor_group}</td>
-              <td>
-                <button>Edit</button>
-                <DeleteButton id={item.id} onDelete={handleDelete} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
     </div>
   );
 }
