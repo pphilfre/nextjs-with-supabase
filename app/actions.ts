@@ -131,6 +131,47 @@ async function CheckIfUser(formData: { user: any; session?: Session; weakPasswor
 
 }
 
+export const updateStudentAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const email = formData.get("email") as string;
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const password = formData.get("password") as string;
+  const date_of_birth = formData.get("dob") as string;
+  const address = formData.get("address") as string;
+  const phone_number = formData.get("parentPhone") as string;
+  const gender = formData.get("gender") as string;
+  const tutor_group = formData.get("tutorGroup") as string;
+
+  if (firstName == null || lastName == null || password == null || date_of_birth == null || address == null || phone_number == null) {
+    return encodedRedirect("error", "/create-student", "All fields are required");
+  }
+
+
+  const supabase = await createClient();
+
+  const { data: users, error: err } = await supabase
+    .from("students")
+    .select("id")
+    .eq("id", id);
+
+    if (users?.length != 0 || err) {
+      return encodedRedirect("error", "/student-view", "User doesn't exist");
+    }
+
+    // update the user
+
+    const { error } = await supabase
+    .from("students")
+    .update({'email': email, 'first_name': firstName, 'last_name': lastName, 'password': password, 'date_of_birth': date_of_birth, 'address': address, 'phone_number': phone_number, 'gender': gender, 'tutor_group': tutor_group})
+    .eq('id', id);
+
+    if (error) {
+      console.error("Error updating student:", error);
+      return encodedRedirect("error", "/student-view", error.message);
+    }
+}
+
 export const createStudentAction = async (formData: FormData) => {
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
