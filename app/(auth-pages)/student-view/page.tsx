@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { useState } from 'react';
 
+
+
 interface User {
     id: string;
     first_name: string;
