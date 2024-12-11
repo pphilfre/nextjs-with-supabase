@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { getUsersAction, updateStudentAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
