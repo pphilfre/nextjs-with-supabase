@@ -18,7 +18,7 @@ export const studentLogin = async (formData: FormData) => {
       .select('email, password')
       .eq('email'.toLowerCase(), email.toLowerCase())
   
-      if (error || data == null || data.length === 0) {
+      if (error || data == null) {
         return encodedRedirect("error", "/student-login", "Email not found");
       } else {
         const user = data[0];
