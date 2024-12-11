@@ -24,7 +24,7 @@ interface User {
 const UserTable = ({ registeredUsers }: { registeredUsers: { props: { data: User[] } } }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
+    // I've got commitment issues, get it?
     const openDialog = (user: User) => {
         setSelectedUser(user);
         setIsOpen(true);
