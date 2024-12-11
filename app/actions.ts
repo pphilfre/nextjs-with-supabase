@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
-import { data } from "autoprefixer";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 
 export const getUsersAction = async() => {
@@ -32,6 +32,21 @@ export const deleteStudent = async(id: string) => {
     return { error: error.message }
   else
     return { success: true };
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'DELETE') {
+    const { id } = req.body;
+
+    // Perform the deletion logic here (e.g., delete from database)
+    // Example:
+    // await deleteStudentFromDatabase(id);
+
+    res.status(200).json({ message: 'Student deleted successfully' });
+  } else {
+    res.setHeader('Allow', ['DELETE']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 }
 
 export const signUpAction = async (formData: FormData) => {
