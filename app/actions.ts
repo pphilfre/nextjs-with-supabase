@@ -143,35 +143,37 @@ export const updateStudentAction = async (formData: FormData) => {
   const gender = formData.get("gender") as string;
   const tutor_group = formData.get("tutorGroup") as string;
 
-  if (firstName == null || lastName == null || password == null || date_of_birth == null || address == null || phone_number == null) {
-    return encodedRedirect("error", "/create-student", "All fields are required");
+  if (!id || !firstName || !lastName || !password || !date_of_birth || !address || !phone_number) {
+    return encodedRedirect("error", "/student-view", "All fields are required");
   }
 
+  const response = await fetch('/api/student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      email,
+      firstName,
+      lastName,
+      password,
+      date_of_birth,
+      address,
+      phone_number,
+      gender,
+      tutor_group,
+    }),
+  });
 
-  const supabase = await createClient();
+  const data = await response.json();
 
-  const { data: users, error: err } = await supabase
-    .from("students")
-    .select("id")
-    .eq("id", id);
-
-    if (users?.length != 0 || err) {
-      return encodedRedirect("error", "/student-view", "User doesn't exist");
-    }
-
-    // update the user
-
-    const { error } = await supabase
-    .from("students")
-    .update({'email': email, 'first_name': firstName, 'last_name': lastName, 'password': password, 'date_of_birth': date_of_birth, 'address': address, 'phone_number': phone_number, 'gender': gender, 'tutor_group': tutor_group})
-    .eq('id', id);
-
-    if (error) {
-      console.error("Error updating student:", error);
-      return encodedRedirect("error", "/student-view", error.message);
-    }
-}
-
+  if (response.ok) {
+    return encodedRedirect("success", "/student-view", "Student updated successfully");
+  } else {
+    return encodedRedirect("error", "/student-view", data.error);
+  }
+};
 export const createStudentAction = async (formData: FormData) => {
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
