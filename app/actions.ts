@@ -162,9 +162,9 @@ export const createStudentAction = async (formData: FormData) => {
     .select("email")
     .eq("email", email);
 
-  if (users != null || err) {
+  if (users?.length != 0 || err) {
     // email already exists
-    email = tutor_group + lastNameShort + firstNameShort + "1" + "@student.com";
+    email = (tutor_group + lastNameShort + firstNameShort + "1" + "@student.com").toLowerCase();
   }
 
   // create the user
