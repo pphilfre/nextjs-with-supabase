@@ -150,10 +150,10 @@ export const createStudentAction = async (formData: FormData) => {
 
   // generate an email for them
 
-  const lastNameShort = lastName.substring(0, 4).toLowerCase() as string;
-  const firstNameShort = firstName.substring(0, 4).toLowerCase() as string;
+  const lastNameShort = lastName.substring(0, 4) as string;
+  const firstNameShort = firstName.substring(0, 4) as string;
 
-  var email = (tutor_group.toLowerCase() + lastNameShort + firstNameShort + "@student.com") as string;
+  var email = (tutor_group + lastNameShort + firstNameShort + "@student.com").toLowerCase() as string;
 
   // check if the email already exists
 
