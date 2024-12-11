@@ -1,4 +1,4 @@
-import {getUsersAction } from "@/app/actions";
+import { getUsersAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -14,28 +14,6 @@ export default async function createStudent(props: { searchParams: Promise<Messa
     }
     const supabase = await createClient();
 
-    const deleteStudent = async (id: number) => {
-        try {
-            const response = await fetch(`/api/deleteStudent`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-            });
-
-            if (response.ok) {
-                // Handle successful deletion (e.g., update the UI)
-                console.log('Student deleted successfully');
-            } else {
-                // Handle errors
-                console.error('Failed to delete student');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
     const {
         data: { user },
     } = await supabase.auth.getUser();
@@ -45,33 +23,32 @@ export default async function createStudent(props: { searchParams: Promise<Messa
     }
 
     return (
-        <div>
-            <table>
-                <thead>
+        <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                     <tr>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Gender</th>
-                        <th>Tutor Group</th>
-                        <th>Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tutor Group</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="bg-white divide-y divide-gray-200">
                     {registeredUsers.props?.data.map(item => (
                         <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.first_name} {item.last_name} </td>
-                            <td>{item.gender}</td>
-                            <td>{item.tutor_group}</td>
-                            <td>
-                                <button>Edit</button>
-                                <button onClick={() => deleteStudent(item.id)}>Delete</button>
+                            <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">{item.first_name} {item.last_name}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">{item.gender}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">{item.tutor_group}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <button className="text-indigo-600 hover:text-indigo-900">Edit</button>
+                            
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
         </div>
 
     )
