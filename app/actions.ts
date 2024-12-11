@@ -16,7 +16,7 @@ export const studentLogin = async (formData: FormData) => {
   const { data, error } = await supabase
       .from('students')
       .select('email, password')
-      .eq('email', email)
+      .eq('email'.toLowerCase(), email.toLowerCase())
   
       if (error || data == null || data.length === 0) {
         return encodedRedirect("error", "/student-login", "Email not found");
