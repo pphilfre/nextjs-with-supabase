@@ -8,20 +8,47 @@ import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 
-export const getUsersAction = async() => {
+export const studentLogin = async (formData: FormData) => {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+      .from('students')
+      .select('email, password')
+      .eq('email', email)
+  
+      if (error || data == null || data.length === 0) {
+        return encodedRedirect("error", "/student-login", "Email not found");
+      } else {
+        const user = data[0];
+        if (user.password) {
+          if (user.password === password) {
+            return redirect("/protected");
+          } else {
+            return encodedRedirect("error", "/student-login", "Password not found");
+          }
+        } else {
+          return encodedRedirect("error", "/student-login", "Password not found");
+        }
+      }
+  
+}
+
+export const getUsersAction = async () => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('students')
     .select();
 
-    if (error)
-      return { error: error.message }
-    else
-      return { props: { data } };
-  
+  if (error)
+    return { error: error.message }
+  else
+    return { props: { data } };
+
 }
 
-export const deleteStudent = async(id: string) => {
+export const deleteStudent = async (id: string) => {
   const supabase = await createClient();
   const { error } = await supabase
     .from('students')
