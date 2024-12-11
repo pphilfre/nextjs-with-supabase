@@ -1,12 +1,16 @@
-
 import { FormMessage, Message } from "@/components/form-message";
+import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import DeleteButton from './deleteButton';
 
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
-  
+  const registeredUsers = await getUsersAction();
+  if (registeredUsers == null) {
+    console.log("No users found");
+  }
   const supabase = await createClient();
 
   const {
@@ -16,6 +20,25 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   if (!user) {
     return redirect("/sign-in");
   }
+
+  const handleDelete = async (id: string) => {
+    const response = await fetch('/api/deleteStudent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (response.ok) {
+      // Handle successful deletion (e.g., refresh the list of users)
+    } else {
+      // Handle error
+      const errorData = await response.json();
+      console.error('Error deleting student:', errorData.error);
+    }
+  };
+
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
@@ -31,6 +54,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
           {JSON.stringify(user, null, 2)}
         </pre>
       </div>
+
     </div>
   );
 }

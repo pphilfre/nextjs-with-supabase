@@ -5,7 +5,76 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
-import { data } from "autoprefixer";
+import { NextApiRequest, NextApiResponse } from 'next';
+
+
+export const studentLogin = async (formData: FormData) => {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+      .from('students')
+      .select('email, password')
+      .eq('email'.toLowerCase(), email.toLowerCase())
+  
+      if (error || data == null) {
+        return encodedRedirect("error", "/student-login", "Email not found");
+      } else {
+        const user = data[0];
+        if (user.password) {
+          if (user.password === password) {
+            return redirect("/protected");
+          } else {
+            return encodedRedirect("error", "/student-login", "Password not found");
+          }
+        } else {
+          return encodedRedirect("error", "/student-login", "Password not found");
+        }
+      }
+  
+}
+
+export const getUsersAction = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('students')
+    .select();
+
+  if (error)
+    return { error: error.message }
+  else
+    return { props: { data } };
+
+}
+
+export const deleteStudent = async (id: string) => {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from('students')
+    .delete()
+    .eq('id', id);
+
+  if (error)
+    return { error: error.message }
+  else
+    return { success: true };
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'DELETE') {
+    const { id } = req.body;
+
+    // Perform the deletion logic here (e.g., delete from database)
+    // Example:
+    // await deleteStudentFromDatabase(id);
+
+    res.status(200).json({ message: 'Student deleted successfully' });
+  } else {
+    res.setHeader('Allow', ['DELETE']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+}
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -62,6 +131,49 @@ async function CheckIfUser(formData: { user: any; session?: Session; weakPasswor
 
 }
 
+export const updateStudentAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const email = formData.get("email") as string;
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const password = formData.get("password") as string;
+  const date_of_birth = formData.get("dob") as string;
+  const address = formData.get("address") as string;
+  const phone_number = formData.get("parentPhone") as string;
+  const gender = formData.get("gender") as string;
+  const tutor_group = formData.get("tutorGroup") as string;
+
+  if (!id || !firstName || !lastName || !password || !date_of_birth || !address || !phone_number) {
+    return encodedRedirect("error", "/student-view", "All fields are required");
+  }
+
+  const response = await fetch('/api/student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      email,
+      firstName,
+      lastName,
+      password,
+      date_of_birth,
+      address,
+      phone_number,
+      gender,
+      tutor_group,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    return encodedRedirect("success", "/student-view", "Student updated successfully");
+  } else {
+    return encodedRedirect("error", "/student-view", data.error);
+  }
+};
 export const createStudentAction = async (formData: FormData) => {
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
@@ -84,7 +196,7 @@ export const createStudentAction = async (formData: FormData) => {
   const lastNameShort = lastName.substring(0, 4) as string;
   const firstNameShort = firstName.substring(0, 4) as string;
 
-  var email = (tutor_group + lastNameShort + firstNameShort + "@student.com") as string;
+  var email = (tutor_group + lastNameShort + firstNameShort + "@student.com").toLowerCase() as string;
 
   // check if the email already exists
 
@@ -93,9 +205,9 @@ export const createStudentAction = async (formData: FormData) => {
     .select("email")
     .eq("email", email);
 
-  if (users != null) {
+  if (users?.length != 0 || err) {
     // email already exists
-    email = tutor_group + lastNameShort + firstNameShort + "1" + "@student.com";
+    email = (tutor_group + lastNameShort + firstNameShort + "1" + "@student.com").toLowerCase();
   }
 
   // create the user
