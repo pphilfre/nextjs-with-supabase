@@ -75,44 +75,44 @@ const UserTable = ({ registeredUsers }: { registeredUsers: { props: { data: User
                                         <div className="mt-2">
                                             <form className="space-y-4">
                                                 <div>
-                                                    <label htmlFor="id" className="block text-sm font-medium text-gray-700">ID</label>
-                                                    <input type="text" id="id" value={selectedUser.id} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="id" className="block text-sm font-medium text-gray-700">ID</Label>
+                                                    <Input type="text" name="id" value={selectedUser.id} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                                                    <input type="text" id="email" value={selectedUser.email} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
+                                                    <Input type="text" name="email" value={selectedUser.email} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                                                    <input type="password" id="password" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</Label>
+                                                    <Input type="password" name="password" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
-                                                    <input type="text" id="first_name" defaultValue={selectedUser.first_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</Label>
+                                                    <Input type="text" name="first_name" defaultValue={selectedUser.first_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
-                                                    <input type="text" id="last_name" defaultValue={selectedUser.last_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</Label>
+                                                    <Input type="text" name="last_name" defaultValue={selectedUser.last_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
-                                                    <input type="date" id="date_of_birth" defaultValue={selectedUser.date_of_birth} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700">Date of Birth</Label>
+                                                    <Input type="date" name="date_of_birth" defaultValue={selectedUser.date_of_birth} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-                                                    <input type="text" id="address" defaultValue={selectedUser.address} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</Label>
+                                                    <Input type="text" name="address" defaultValue={selectedUser.address} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                                                    <input type="text" id="phone_number" defaultValue={selectedUser.phone_number} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</Label>
+                                                    <Input type="text" name="phone_number" defaultValue={selectedUser.phone_number} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
-                                                    <input type="text" id="gender" defaultValue={selectedUser.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</Label>
+                                                    <Input type="text" name="gender" defaultValue={selectedUser.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                                 <div>
-                                                    <label htmlFor="tutor_group" className="block text-sm font-medium text-gray-700">Tutor Group</label>
-                                                    <input type="text" id="tutor_group" defaultValue={selectedUser.tutor_group} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <Label htmlFor="tutor_group" className="block text-sm font-medium text-gray-700">Tutor Group</Label>
+                                                    <Input type="text" name="tutor_group" defaultValue={selectedUser.tutor_group} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 </div>
                                             </form>
                                         </div>
