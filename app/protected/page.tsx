@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import DeleteButton from './deleteButton';
+import React from 'react';
 
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -21,40 +22,29 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
     return redirect("/sign-in");
   }
 
-  const handleDelete = async (id: string) => {
-    const response = await fetch('/api/deleteStudent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id }),
-    });
-
-    if (response.ok) {
-      // Handle successful deletion (e.g., refresh the list of users)
-    } else {
-      // Handle error
-      const errorData = await response.json();
-      console.error('Error deleting student:', errorData.error);
-    }
-  };
-
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
+    <div className="flex min-h-screen bg-gray-100">
+      <aside className="w-64 bg-white shadow-md">
+        <div className="p-4">
+          <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
         </div>
-      </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      </div>
-
+        <nav className="mt-6">
+          <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
+            Home
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
+            Users
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
+            Settings
+          </a>
+        </nav>
+      </aside>
+      <main className="flex-1 p-6">
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
+        </div>
+      </main>
     </div>
   );
 }
