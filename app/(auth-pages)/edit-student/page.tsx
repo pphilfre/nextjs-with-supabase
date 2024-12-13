@@ -34,10 +34,12 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
         if (element.id === searchParams.id) {
             console.log(element);
             desiredUser = element;
+        } else {
+            console.log("No user found: " + element.id);
         }
     });
 
-    if (desiredUser == null) {
+    if (desiredUser.id == null) {
         console.log("No user found");
         redirect("/protected");
     }
