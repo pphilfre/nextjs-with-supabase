@@ -18,6 +18,10 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
     redirect("/edit-student?id=" + formData.get("itemId"));
   }
 
+  const newUser = async (_: FormData) => {
+    redirect("/create-student");
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -26,6 +30,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
     return redirect("/sign-in");
   }
 
+  let studentCount = registeredUsers?.props?.data.length;
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
       <div className="flex flex-1">
@@ -56,7 +61,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               </div>
               <div className="ml-4">
                 <h2 className="text-xl font-semibold text-gray-800">Total Students</h2>
-                <p className="text-gray-600">123</p>
+                <p className="text-gray-600">{studentCount}</p>
               </div>
             </div>
             <div className="flex items-center bg-white p-4 rounded-lg shadow-md w-1/2">
@@ -70,7 +75,16 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
             </div>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
-            <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
+          <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
+              <form action={newUser}>
+              <button 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              type="submit">
+                Add User
+              </button>
+              </form>
+            </div>
             <ul className="mt-4 text-gray-600">
               <table className="min-w-full bg-white">
                 <thead>
