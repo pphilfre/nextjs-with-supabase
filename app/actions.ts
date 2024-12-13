@@ -8,38 +8,28 @@ import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
 export const updateStudentAction = async (formData: FormData) => {
   const id = formData.get("id") as string;
+  const first_name = formData.get("first_name") as string;
+  const last_name = formData.get("last_name") as string;
   const password = formData.get("password") as string;
+  const date_of_birth = formData.get("date_of_birth") as string;
   const gender = formData.get("gender") as string;
   const address = formData.get("address") as string;
+  const phone_number = formData.get("parent_phone") as string;
   const tutor_group = formData.get("tutorGroup") as string;
-  const parent_email = formData.get("parentEmail") as string;
 
-  if (!id || !password || !gender || !address || !tutor_group || !parent_email) {
-    return encodedRedirect("error", "/manage-students", "All fields are required");
-  }
+  const supabase = await createClient();
 
-  const response = await fetch('/api/update-student', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id,
-      password,
-      gender,
-      address,
-      tutor_group,
-      parent_email,
-    }),
-  });
+  const { error} = await supabase
+  .from("students")
+  .update({first_name: first_name, last_name: last_name, password: password, date_of_birth: date_of_birth, address: address, phone_number: phone_number, gender: gender, tutor_group: tutor_group })
+  .eq('id', id);
 
-  const data = await response.json();
-
-  if (response.ok) {
-    return encodedRedirect("success", "/manage-students", "Student updated successfully");
+  if (error) {
+    return encodedRedirect("error", "/edit-student", error.message);
   } else {
-    return encodedRedirect("error", "/manage-students", data.error);
+    return encodedRedirect("success", "/edit-student", "Student updated successfully");
   }
+
 };
 
 export const getUsersAction = async () => {
