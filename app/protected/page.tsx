@@ -23,7 +23,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
-      <aside className="w-64 bg-white shadow-md">
+      <aside className="w-1/3 bg-white shadow-md h-screen">
         <div className="p-4">
           <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
         </div>
