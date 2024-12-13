@@ -69,6 +69,34 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
         <div className="bg-white p-6 rounded-lg shadow-md flex-1">
           <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
           <ul className="mt-4 text-gray-600">
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    Tutor Group
+                  </th>
+                  <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                {registeredUsers?.props?.data.map((user) => (
+                  <tr key={user.id}>
+                    <td className="py-2 px-4 border-b border-gray-200">{user.first_name} {user.last_name}</td>
+                    <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
+                    <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
+                    <td className="py-2 px-4 border-b border-gray-200 text-sky-500">Edit</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </ul>
         </div>
       </main>
