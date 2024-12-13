@@ -99,9 +99,6 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
         </div>
       </main>
       </div>
-      <footer className="bg-white text-center py-4 mt-auto shadow-md">
-        <p className="text-gray-600">© 2023 Your Company. All rights reserved.</p>
-      </footer>
     </div>
   );
 }

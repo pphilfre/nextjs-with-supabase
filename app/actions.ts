@@ -6,7 +6,41 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
+export const updateStudentAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const password = formData.get("password") as string;
+  const gender = formData.get("gender") as string;
+  const address = formData.get("address") as string;
+  const tutor_group = formData.get("tutorGroup") as string;
+  const parent_email = formData.get("parentEmail") as string;
 
+  if (!id || !password || !gender || !address || !tutor_group || !parent_email) {
+    return encodedRedirect("error", "/manage-students", "All fields are required");
+  }
+
+  const response = await fetch('/api/update-student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      password,
+      gender,
+      address,
+      tutor_group,
+      parent_email,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    return encodedRedirect("success", "/manage-students", "Student updated successfully");
+  } else {
+    return encodedRedirect("error", "/manage-students", data.error);
+  }
+};
 
 export const getUsersAction = async () => {
   const supabase = await createClient();
