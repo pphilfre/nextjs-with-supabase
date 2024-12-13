@@ -45,17 +45,19 @@ export const getUsersAction = async () => {
 
 }
 
-export const deleteStudent = async (id: string) => {
+export const deleteStudent = async (data: FormData) => {
   const supabase = await createClient();
+  const id = data.get("itemId");
   const { error } = await supabase
     .from('students')
     .delete()
     .eq('id', id);
 
-  if (error)
-    return { error: error.message }
-  else
-    return { success: true };
+  if (error) {
+     encodedRedirect("error", "/protected", error.message);
+  } else {
+    encodedRedirect("success", "/protected", "Student deleted successfully");
+  }
 }
 
 

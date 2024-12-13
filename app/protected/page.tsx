@@ -1,5 +1,5 @@
 import { FormMessage, Message } from "@/components/form-message";
-import { getUsersAction } from "@/app/actions";
+import { getUsersAction, deleteStudent } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon, Users, UserCheck, User } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -116,12 +116,17 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                           <input name="itemId" className="hidden" value={user.id}/>
                           <button type="submit">Edit</button>
                         </form>
+                        <form action={deleteStudent}>
+                          <input name="itemId" className="hidden" value={user.id}/>
+                          <button type="submit">Delete</button>
+                        </form>
                       </td>
 
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <FormMessage message={searchParams} />
             </ul>
           </div>
         </main>
