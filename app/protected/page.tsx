@@ -48,14 +48,6 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
       <main className="flex-1 p-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
-          <ul className="mt-4 text-gray-600">
-            {registeredUsers.map((user: any) => (
-              <li key={user.id} className="flex justify-between items-center py-2">
-                <span>{user.name}</span>
-                <button className="text-red-500 hover:text-red-700">Delete</button>
-              </li>
-            ))}
-          </ul>
         </div>
       </main>
       <footer className="bg-white text-center py-4 mt-auto shadow-md">
