@@ -25,9 +25,9 @@ export const updateStudentAction = async (formData: FormData) => {
   .eq('id', id);
 
   if (error) {
-    return encodedRedirect("error", "/edit-student", error.message);
+    return encodedRedirect("error", "/protected", error.message);
   } else {
-    return encodedRedirect("success", "/edit-student", "Student updated successfully");
+    return encodedRedirect("success", "/protected", "Student updated successfully");
   }
 
 };
