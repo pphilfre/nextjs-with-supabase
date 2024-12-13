@@ -13,6 +13,10 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   }
   const supabase = await createClient();
 
+  const redirectToEdit = async (id: string) => {
+    redirect("/edit-student?id=" + id);
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -90,7 +94,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                     <td className="py-2 px-4 border-b border-gray-200">{user.first_name} {user.last_name}</td>
                     <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
                     <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
-                    <td className="py-2 px-4 border-b border-gray-200 text-sky-500">Edit</td>
+                    <td className="py-2 px-4 border-b border-gray-200 text-sky-500"><button onClick={() => redirectToEdit(user.id)}>Edit</button></td>
                   </tr>
                 ))}
               </tbody>
