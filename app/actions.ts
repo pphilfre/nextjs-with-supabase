@@ -15,7 +15,7 @@ export const updateStudentAction = async (formData: FormData) => {
   const gender = formData.get("gender") as string;
   const address = formData.get("address") as string;
   const phone_number = formData.get("parent_phone") as string;
-  const tutor_group = formData.get("tutorGroup") as string;
+  const tutor_group = formData.get("tutor_group") as string;
 
   const supabase = await createClient();
 
