@@ -76,14 +76,14 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
             </div>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
-          <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
               <form action={newUser}>
-              <button 
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              type="submit">
-                Add User
-              </button>
+                <button
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  type="submit">
+                  Add User
+                </button>
               </form>
             </div>
             <ul className="mt-4 text-gray-600">
@@ -111,17 +111,17 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                       <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
                       <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
 
-                      <td className="py-2 px-4 border-b border-gray-200 text-sky-500">
+                      <td className="py-2 px-4 border-b border-gray-200 flex space-x-4">
                         <form action={redirectToEdit}>
-                          <input name="itemId" className="hidden" value={user.id}/>
-                          <button type="submit">Edit</button>
+                          <input name="itemId" className="hidden" value={user.id} />
+                          <button type="submit" className=" text-sky-500">Edit</button>
                         </form>
                         <form action={deleteStudent}>
-                          <input name="itemId" className="hidden" value={user.id}/>
-                          <button type="submit">Delete</button>
+                          <input name="itemId" className="hidden" value={user.id} />
+                          <button type="submit" className="text-orange-600">Delete</button>
                         </form>
                       </td>
-
+                      
                     </tr>
                   ))}
                 </tbody>
@@ -130,8 +130,8 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
             </ul>
           </div>
         </main>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 
