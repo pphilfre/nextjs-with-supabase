@@ -1,7 +1,7 @@
 import { FormMessage, Message } from "@/components/form-message";
 import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, Users, UserCheck } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from 'react';
 
@@ -45,9 +45,31 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
           </a>
         </nav>
       </aside>
-      <main className="flex-1 p-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
+      <main className="flex-1 p-6 flex flex-col">
+        <div className="flex flex-wrap gap-6 mb-6">
+          <div className="flex items-center bg-white p-4 rounded-lg shadow-md w-1/2">
+            <div className="bg-blue-500 text-white p-3 rounded-full">
+              <Users className="w-6 h-6" />
+            </div>
+            <div className="ml-4">
+              <h2 className="text-xl font-semibold text-gray-800">Total Students</h2>
+              <p className="text-gray-600">123</p>
+            </div>
+          </div>
+          <div className="flex items-center bg-white p-4 rounded-lg shadow-md w-1/2">
+            <div className="bg-green-500 text-white p-3 rounded-full">
+              <UserCheck className="w-6 h-6" />
+            </div>
+            <div className="ml-4">
+              <h2 className="text-xl font-semibold text-gray-800">Total Staff</h2>
+              <p className="text-gray-600">123</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md flex-1">
           <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
+          <ul className="mt-4 text-gray-600">
+          </ul>
         </div>
       </main>
       <footer className="bg-white text-center py-4 mt-auto shadow-md">
