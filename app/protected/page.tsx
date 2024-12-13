@@ -19,6 +19,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   }
 
   const newUser = async (_: FormData) => {
+    "use server";
     redirect("/create-student");
   }
 
