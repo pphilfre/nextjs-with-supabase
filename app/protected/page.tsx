@@ -14,7 +14,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   const supabase = await createClient();
 
   const redirectToEdit = async (formData: FormData) => {
-    
+    "use server";
     redirect("/edit-student?id=" + formData.get("itemId"));
   }
 
