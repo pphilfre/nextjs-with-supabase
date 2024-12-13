@@ -1,3 +1,5 @@
+"use client";
+
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/server';
