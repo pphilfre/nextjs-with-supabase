@@ -5,9 +5,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const supabase = await createClient();
 
   if (req.method === 'POST') {
-    const { id, password, gender, address, tutor_group, parent_email } = req.body;
+    const { id, first_name, last_name, date_of_birth, address, parent_phone, gender, tutor_group } = req.body;
 
-    if (!id || !password || !gender || !address || !tutor_group || !parent_email) {
+    if (!id || !first_name || !last_name || !date_of_birth || !address || !parent_phone || !gender || !tutor_group) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -23,19 +23,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { error } = await supabase
       .from("students")
       .update({
-        password,
-        gender,
+        first_name,
+        last_name,
+        date_of_birth,
         address,
-        tutor_group,
-        parent_email
+        parent_phone,
+        gender,
+        tutor_group
       })
       .eq('id', id);
 
     if (error) {
-      console.error("Error updating student:", error);
+      console.error("Error updating user:", error);
       return res.status(500).json({ error: error.message });
     } else {
-      return res.status(200).json({ message: 'Student updated successfully' });
+      return res.status(200).json({ message: 'User updated successfully' });
     }
   } else {
     res.setHeader('Allow', ['POST']);
