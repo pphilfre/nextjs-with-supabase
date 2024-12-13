@@ -32,11 +32,11 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
         return redirect("/sign-in");
     }
 
-    const { data: students, error} = await supabase
-    .from('students')
-    .select()
-    .eq('id', searchParams.id);
-    
+    const { data: students, error } = await supabase
+        .from('students')
+        .select()
+        .eq('id', searchParams.id);
+
 
     if (error || students == null) {
         redirect("/protected");
@@ -55,39 +55,49 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <Label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</Label>
-                        <Input type="text" name="first_name" defaultValue={studentData.first_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <Input type="text" name="first_name" defaultValue={studentData.first_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required/>
                     </div>
                     <div>
                         <Label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</Label>
-                        <Input type="text" name="last_name" defaultValue={studentData.last_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <Input type="text" name="last_name" defaultValue={studentData.last_name} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required/>
                     </div>
                 </div>
                 <div>
                     <Label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</Label>
-                    <Input type="password" name="password" defaultValue={studentData.password} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="password" name="password" minLength={8} defaultValue={studentData.password} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required/>
                 </div>
                 <div>
                     <Label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700">Date of Birth</Label>
-                    <Input type="date" name="date_of_birth" defaultValue={studentData.date_of_birth} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="date" name="date_of_birth" max="2023-01-01" min="1995-01-01" defaultValue={studentData.date_of_birth} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
                 </div>
                 <div>
                     <Label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</Label>
-                    <Input type="text" name="address" defaultValue={studentData.address} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="text" name="address" defaultValue={studentData.address} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
                 </div>
                 <div>
                     <Label htmlFor="parent_phone" className="block text-sm font-medium text-gray-700">Parent Phone Number</Label>
-                    <Input type="text" name="parent_phone" defaultValue={studentData.phone_number} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="text" name="parent_phone" defaultValue={studentData.phone_number} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required/>
                 </div>
-                <div>
+                <div className="flex flex-col">
                     <Label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</Label>
-                    <Input type="text" name="gender" defaultValue={studentData.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <select name="gender" defaultValue={studentData.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <div>
                     <Label htmlFor="tutor_group" className="block text-sm font-medium text-gray-700">Tutor Group</Label>
-                    <Input type="text" name="tutor_group" defaultValue={studentData.tutor_group} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="text" name="tutor_group" defaultValue={studentData.tutor_group} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
                 </div>
                 <div className="mt-5">
-                    <SubmitButton className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm" formAction={updateStudentAction}>
+                    <SubmitButton 
+                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm" 
+                    pendingText="Updating..."
+                    formAction={updateStudentAction}>
                         Save
                     </SubmitButton>
                 </div>
