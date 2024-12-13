@@ -1,7 +1,7 @@
 import { FormMessage, Message } from "@/components/form-message";
 import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon, Users, UserCheck } from "lucide-react";
+import { InfoIcon, Users, UserCheck, User } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from 'react';
 
@@ -13,8 +13,9 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   }
   const supabase = await createClient();
 
-  const redirectToEdit = async (id: string) => {
-    redirect("/edit-student?id=" + id);
+  const redirectToEdit = async (formData: FormData) => {
+    
+    redirect("/edit-student?id=" + formData.get("itemId"));
   }
 
   const {
@@ -96,7 +97,8 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                       <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
 
                       <td className="py-2 px-4 border-b border-gray-200 text-sky-500">
-                        <form onSubmit={() => redirectToEdit(user.id)}>
+                        <form action={redirectToEdit}>
+                          <input name="itemId" className="hidden" value={user.id}/>
                           <button type="submit">Edit</button>
                         </form>
                       </td>
