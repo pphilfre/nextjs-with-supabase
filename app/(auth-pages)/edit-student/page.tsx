@@ -80,7 +80,7 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
                 </div>
                 <div className="flex flex-col">
                     <Label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</Label>
-                    <select name="gender" defaultValue={studentData.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                    <select name="gender" defaultValue={studentData.gender} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 p-2 border rounded" required>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
