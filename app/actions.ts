@@ -6,7 +6,31 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
+export const updateStudentAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const first_name = formData.get("first_name") as string;
+  const last_name = formData.get("last_name") as string;
+  const password = formData.get("password") as string;
+  const date_of_birth = formData.get("date_of_birth") as string;
+  const gender = formData.get("gender") as string;
+  const address = formData.get("address") as string;
+  const phone_number = formData.get("parent_phone") as string;
+  const tutor_group = formData.get("tutor_group") as string;
 
+  const supabase = await createClient();
+
+  const { error} = await supabase
+  .from("students")
+  .update({first_name: first_name, last_name: last_name, password: password, date_of_birth: date_of_birth, address: address, phone_number: phone_number, gender: gender, tutor_group: tutor_group })
+  .eq('id', id);
+
+  if (error) {
+    return encodedRedirect("error", "/protected", error.message);
+  } else {
+    return encodedRedirect("success", "/protected", "Student updated successfully");
+  }
+
+};
 
 export const getUsersAction = async () => {
   const supabase = await createClient();
@@ -21,17 +45,19 @@ export const getUsersAction = async () => {
 
 }
 
-export const deleteStudent = async (id: string) => {
+export const deleteStudent = async (data: FormData) => {
   const supabase = await createClient();
+  const id = data.get("itemId");
   const { error } = await supabase
     .from('students')
     .delete()
     .eq('id', id);
 
-  if (error)
-    return { error: error.message }
-  else
-    return { success: true };
+  if (error) {
+     encodedRedirect("error", "/protected", error.message);
+  } else {
+    encodedRedirect("success", "/protected", "Student deleted successfully");
+  }
 }
 
 
