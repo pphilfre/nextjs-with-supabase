@@ -1,4 +1,4 @@
-/* import { FormMessage, Message } from "@/components/form-message";
+import { FormMessage, Message } from "@/components/form-message";
 import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon, Users, UserCheck } from "lucide-react";
@@ -49,11 +49,11 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
         <div className="bg-white p-6 rounded-lg shadow-md flex-1">
           <h2 className="text-xl font-semibold text-gray-800">Student Behaviour</h2>
           <ul className="mt-4 text-gray-600">
-            {registeredUsers.props.data.map((student: any) => (
+            {registeredUsers.props?.data.map((student: any) => (
               <li key={student.id} className="border-b py-2">
                 <div className="flex justify-between items-center">
                   <span>{student.first_name} {student.last_name}</span>
-                  <span className="text-sm text-gray-500">{student.behaviour}</span>
+                  <span className="text-sm text-gray-500">Positive points?</span>
                 </div>
               </li>
             ))}
@@ -66,4 +66,3 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
     </div>
   );
 }
-*/
