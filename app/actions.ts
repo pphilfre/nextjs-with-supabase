@@ -10,6 +10,7 @@ export const assignStudentAction = async (formData: FormData) => {
   const id = formData.get("student_id") as string;
   const action_type = formData.get("action_type") as string;
   let points = 0;
+  let jsonData = {};
   // Check the action type
   if (!(action_type === "note")) {
 
@@ -44,15 +45,22 @@ export const assignStudentAction = async (formData: FormData) => {
 
   switch (action_type) {
     case "note":
+      let previousNotes = data.notes;
+
+      jsonData = {
+        message: message,
+        date_assigned: date_assigned,
+      };
+
+      if (previousNotes == null) {
+        previousNotes = [jsonData];
+      }
+      else
+        previousNotes.push(jsonData);
+
       const { error: err1 } = await supabase
         .from("student")
-        .insert([
-          {
-            notes: [{
-              message: message,
-              date_assigned: date_assigned,
-            }]
-          }])
+        .update({notes: previousNotes})
         .eq('id', id);
       if (err1) {
         return encodedRedirect("error", "/protected", err1.message);
@@ -60,29 +68,30 @@ export const assignStudentAction = async (formData: FormData) => {
         return encodedRedirect("success", "/protected", "Note added successfully");
       }
     case "behaviour":
+      let previousNegatives = data.negatives;
+      jsonData = {
+        points: points,
+        message: message,
+        date_assigned: date_assigned,
+      };
+      if (previousNegatives == null) {
+        previousNegatives = [jsonData];
+      }
+      else
+      previousNegatives.push(jsonData);
+
       const { error: err2 } = await supabase
-        .from("student")
-        .insert([
-          {
-            negatives: [{
-              points: points,
-              message: message,
-              date_assigned: date_assigned,
-            }]
-          }])
+        .from("students")
+        .update({negatives: previousNegatives})
         .eq('id', id);
       if (err2) {
         return encodedRedirect("error", "/protected", err2.message);
       } else {
-        return encodedRedirect("success", "/protected", "Behaviour added successfully");
+        return encodedRedirect("success", "/protected", "Negative added successfully " + JSON.stringify(previousNegatives));
       }
     case "achievement":
-
       let previousPositives = data.positives;
-
-      
-
-      const jsonData = {
+      jsonData = {
         points: points,
         message: message,
         date_assigned: date_assigned,
