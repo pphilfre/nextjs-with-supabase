@@ -77,11 +77,8 @@ export const assignStudentAction = async (formData: FormData) => {
       };
 
       const { error: err3 } = await supabase
-        .from("student")
-        .insert([
-          {
-            positives: jsonData
-          }])
+        .from("students")
+        .insert(JSON.stringify([{ positives: jsonData }]))
         .eq('id', id);
       if (err3) {
         return encodedRedirect("error", "/protected", err3.message);
