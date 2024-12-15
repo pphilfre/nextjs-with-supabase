@@ -31,6 +31,14 @@ export const assignStudentAction = async (formData: FormData) => {
   }
 
   const supabase = await createClient();
+  const { data: data, error: _err } = await supabase
+    .from("students")
+    .select()
+    .eq('id', id)
+    .single();
+  if (data == null || _err) {
+    return encodedRedirect("error", "/protected", "Student not found");
+  }
 
   // Insert the data into the table
 
@@ -70,21 +78,30 @@ export const assignStudentAction = async (formData: FormData) => {
       }
     case "achievement":
 
+      let previousPositives = data.positives;
+
+      if (previousPositives == null) {
+        previousPositives = [];
+      }
+
       const jsonData = {
         points: points,
         message: message,
         date_assigned: date_assigned,
       };
 
+      previousPositives.push(jsonData);
+
       const { error: err3 } = await supabase
         .from("students")
-        .insert(JSON.stringify([{ positives: jsonData }]))
+        .update(JSON.stringify([{ positives: previousPositives }]))
         .eq('id', id);
       if (err3) {
         return encodedRedirect("error", "/protected", err3.message);
       } else {
         return encodedRedirect("success", "/protected", "Positive added successfully");
       }
+
     default:
       return encodedRedirect("error", "/protected", "Invalid action type");
   }
