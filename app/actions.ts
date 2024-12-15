@@ -81,7 +81,7 @@ export const assignStudentAction = async (formData: FormData) => {
       let previousPositives = data.positives;
 
       if (previousPositives == null) {
-        previousPositives = [];
+        previousPositives = [{}];
       }
 
       const jsonData = {
