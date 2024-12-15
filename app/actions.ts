@@ -6,6 +6,79 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
+export const assignStudentAction = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const action_type = formData.get("action_type") as string;
+  let points = 0;
+  // Check the action type
+  if (!(action_type === "notes")) {
+    points = parseInt(formData.get("points") as string);
+  }
+
+  const message = formData.get("message") as string;
+  const date_assigned = formData.get("date_assigned") as string;
+
+  const supabase = await createClient();
+
+  // Insert the data into the table
+
+  switch (action_type) {
+    case "Note":
+      const { error: err1 } = await supabase
+        .from("student")
+        .insert([
+          {
+            notes: [{
+              message: message,
+              date_assigned: date_assigned,
+            }]
+          }])
+        .eq('id', id);
+      if (err1) {
+        return encodedRedirect("error", "/protected", err1.message);
+      } else {
+        return encodedRedirect("success", "/protected", "Note added successfully");
+      }
+    case "Behaviour":
+      const { error: err2 } = await supabase
+        .from("student")
+        .insert([
+          {
+            negatives: [{
+              points: points,
+              message: message,
+              date_assigned: date_assigned,
+            }]
+          }])
+        .eq('id', id);
+      if (err2) {
+        return encodedRedirect("error", "/protected", err2.message);
+      } else {
+        return encodedRedirect("success", "/protected", "Behaviour added successfully");
+      }
+    case "Achievement":
+      const { error: err3 } = await supabase
+        .from("student")
+        .insert([
+          {
+            positives: [{
+              points: points,
+              message: message,
+              date_assigned: date_assigned,
+            }]
+          }])
+        .eq('id', id);
+      if (err3) {
+        return encodedRedirect("error", "/protected", err3.message);
+      } else {
+        return encodedRedirect("success", "/protected", "Positive added successfully");
+      }
+    default:
+      return encodedRedirect("error", "/protected", "Invalid action type");
+  }
+
+}
+
 export const updateStudentAction = async (formData: FormData) => {
   const id = formData.get("id") as string;
   const first_name = formData.get("first_name") as string;
@@ -19,10 +92,10 @@ export const updateStudentAction = async (formData: FormData) => {
 
   const supabase = await createClient();
 
-  const { error} = await supabase
-  .from("students")
-  .update({first_name: first_name, last_name: last_name, password: password, date_of_birth: date_of_birth, address: address, phone_number: phone_number, gender: gender, tutor_group: tutor_group })
-  .eq('id', id);
+  const { error } = await supabase
+    .from("students")
+    .update({ first_name: first_name, last_name: last_name, password: password, date_of_birth: date_of_birth, address: address, phone_number: phone_number, gender: gender, tutor_group: tutor_group })
+    .eq('id', id);
 
   if (error) {
     return encodedRedirect("error", "/protected", error.message);
@@ -54,7 +127,7 @@ export const deleteStudent = async (data: FormData) => {
     .eq('id', id);
 
   if (error) {
-     encodedRedirect("error", "/protected", error.message);
+    encodedRedirect("error", "/protected", error.message);
   } else {
     encodedRedirect("success", "/protected", "Student deleted successfully");
   }
