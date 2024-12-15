@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { Session, WeakPassword, SupabaseClient } from "@supabase/supabase-js";
 
 export const assignStudentAction = async (formData: FormData) => {
-  const id = formData.get("id") as string;
+  const id = formData.get("student_id") as string;
   const action_type = formData.get("action_type") as string;
   let points = 0;
   // Check the action type
