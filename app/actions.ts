@@ -99,7 +99,7 @@ export const assignStudentAction = async (formData: FormData) => {
       if (err3) {
         return encodedRedirect("error", "/protected", err3.message);
       } else {
-        return encodedRedirect("success", "/protected", "Positive added successfully");
+        return encodedRedirect("success", "/protected", "Positive added successfully " + previousPositives);
       }
 
     default:
