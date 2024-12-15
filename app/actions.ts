@@ -26,6 +26,10 @@ export const assignStudentAction = async (formData: FormData) => {
   const message = formData.get("message") as string;
   const date_assigned = formData.get("date_assigned") as string;
 
+  if (message == null || date_assigned == null || id == null) {
+    return encodedRedirect("error", "/protected", "All fields are required");
+  }
+
   const supabase = await createClient();
 
   // Insert the data into the table
