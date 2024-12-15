@@ -26,7 +26,7 @@ export const assignStudentAction = async (formData: FormData) => {
   const message = formData.get("message") as string;
   const date_assigned = formData.get("date_assigned") as string;
 
-  if (message == null || date_assigned == null || id == null) {
+  if (message == null || date_assigned == null || id == null || points == null) {
     return encodedRedirect("error", "/protected", "All fields are required");
   }
 
@@ -69,15 +69,18 @@ export const assignStudentAction = async (formData: FormData) => {
         return encodedRedirect("success", "/protected", "Behaviour added successfully");
       }
     case "achievement":
+
+      const jsonData = {
+        points: points,
+        message: message,
+        date_assigned: date_assigned,
+      };
+
       const { error: err3 } = await supabase
         .from("student")
         .insert([
           {
-            positives: [{
-              points: points,
-              message: message,
-              date_assigned: date_assigned,
-            }]
+            positives: jsonData
           }])
         .eq('id', id);
       if (err3) {
