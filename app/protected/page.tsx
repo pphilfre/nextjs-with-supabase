@@ -15,7 +15,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
 
   const redirectToManage = async (formData: FormData) => {
     "use server";
-    redirect("/protected/manage-student?id=" + formData.get("itemId"));
+    redirect("/protected/student-actions?id=" + formData.get("itemId"));
   }
 
   const redirectToEdit = async (formData: FormData) => {
