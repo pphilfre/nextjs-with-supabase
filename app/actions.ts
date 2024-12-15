@@ -12,7 +12,15 @@ export const assignStudentAction = async (formData: FormData) => {
   let points = 0;
   // Check the action type
   if (!(action_type === "notes")) {
-    points = parseInt(formData.get("points") as string);
+
+    try {
+      points = parseInt(formData.get("points") as string);
+    } catch (error) {
+      encodedRedirect("error", "/protected", "Points must be a number");
+    }
+
+
+
   }
 
   const message = formData.get("message") as string;
