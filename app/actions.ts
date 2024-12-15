@@ -11,7 +11,7 @@ export const assignStudentAction = async (formData: FormData) => {
   const action_type = formData.get("action_type") as string;
   let points = 0;
   // Check the action type
-  if (!(action_type === "notes")) {
+  if (!(action_type === "note")) {
 
     try {
       points = parseInt(formData.get("points") as string);
@@ -31,7 +31,7 @@ export const assignStudentAction = async (formData: FormData) => {
   // Insert the data into the table
 
   switch (action_type) {
-    case "Note":
+    case "note":
       const { error: err1 } = await supabase
         .from("student")
         .insert([
@@ -47,7 +47,7 @@ export const assignStudentAction = async (formData: FormData) => {
       } else {
         return encodedRedirect("success", "/protected", "Note added successfully");
       }
-    case "Behaviour":
+    case "behaviour":
       const { error: err2 } = await supabase
         .from("student")
         .insert([
@@ -64,7 +64,7 @@ export const assignStudentAction = async (formData: FormData) => {
       } else {
         return encodedRedirect("success", "/protected", "Behaviour added successfully");
       }
-    case "Achievement":
+    case "achievement":
       const { error: err3 } = await supabase
         .from("student")
         .insert([
