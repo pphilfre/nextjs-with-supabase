@@ -1,4 +1,4 @@
- {/* import { FormMessage, Message } from "@/components/form-message";
+/* import { FormMessage, Message } from "@/components/form-message";
 import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon, Users, UserCheck } from "lucide-react";
@@ -66,4 +66,4 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
     </div>
   );
 }
-*/}
+*/
