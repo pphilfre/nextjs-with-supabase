@@ -59,7 +59,7 @@ export const assignStudentAction = async (formData: FormData) => {
         previousNotes.push(jsonData);
 
       const { error: err1 } = await supabase
-        .from("student")
+        .from("students")
         .update({notes: previousNotes})
         .eq('id', id);
       if (err1) {
