@@ -1,12 +1,10 @@
 import { FormMessage, Message } from "@/components/form-message";
-import { useState } from 'react';
 import { SubmitButton } from "@/components/submit-button";
 import {assignStudentAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { redirect } from "next/navigation";
-import React from 'react';
 
 type StudentMessage = Message & { id: string };
 
@@ -25,15 +23,13 @@ export interface Student {
 export default async function EditStudentPage(props: { searchParams: Promise<Student> }) {
     const searchParams = await props.searchParams;
     const supabase = await createClient();
-    const [actionType, setActionType] = useState('behaviour');
-    const [points, setPoints] = useState('');
 
-    const handleActionTypeChange = (e: any) => {
-        setActionType(e.target.value);
-        if (e.target.value === 'note') {
-            setPoints('');
-        }
-    };
+    // const handleActionTypeChange = (e: any) => {
+    //     setActionType(e.target.value);
+    //     if (e.target.value === 'note') {
+    //         setPoints('');
+    //     }
+    // };
     const {
         data: { user },
     } = await supabase.auth.getUser();
@@ -115,22 +111,22 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
             <form className="space-y-4">
                 <div>
                     <Label htmlFor="student_id" className="block text-sm font-medium text-gray-700">Student ID</Label>
-                    <Input type="text" name="student_id" value={studentData.id} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <Input type="text" name="student_id" defaultChecked={studentData.id} readOnly className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div>
                     <Label htmlFor="action_type" className="block text-sm font-medium text-gray-700">Action Type</Label>
-                    <select name="action_type" value={actionType} onChange={handleActionTypeChange} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <select name="action_type" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         <option value="behaviour">Behaviour</option>
                         <option value="achievement">Achievement</option>
                         <option value="note">Note</option>
                     </select>
                 </div>
-                {(actionType === 'behaviour' || actionType === 'achievement') && (
+                
                     <div>
                         <Label htmlFor="points" className="block text-sm font-medium text-gray-700">Points</Label>
-                        <Input type="number" name="points" value={points} onChange={(e) => setPoints(e.target.value)} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <Input type="number" name="points" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                     </div>
-                )}
+                
                 <div>
                     <Label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</Label>
                     <Input type="text" name="message" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
