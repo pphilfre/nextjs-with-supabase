@@ -87,7 +87,7 @@ export const assignStudentAction = async (formData: FormData) => {
       if (err2) {
         return encodedRedirect("error", "/protected", err2.message);
       } else {
-        return encodedRedirect("success", "/protected", "Negative added successfully " + JSON.stringify(previousNegatives));
+        return encodedRedirect("success", "/protected", "Negative added successfully");
       }
     case "achievement":
       let previousPositives = data.positives;
@@ -109,7 +109,7 @@ export const assignStudentAction = async (formData: FormData) => {
       if (err3) {
         return encodedRedirect("error", "/protected", err3.message);
       } else {
-        return encodedRedirect("success", "/protected", "Positive added successfully " + JSON.stringify(previousPositives));
+        return encodedRedirect("success", "/protected", "Positive added successfully");
       }
 
     default:

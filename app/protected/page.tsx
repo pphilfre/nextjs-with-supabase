@@ -13,10 +13,16 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   }
   const supabase = await createClient();
 
+  const redirectToManage = async (formData: FormData) => {
+    "use server";
+    redirect("/protected/manage-student?id=" + formData.get("itemId"));
+  }
+
   const redirectToEdit = async (formData: FormData) => {
     "use server";
     redirect("/edit-student?id=" + formData.get("itemId"));
   }
+  
 
   const newUser = async (_: FormData) => {
     "use server";
@@ -112,6 +118,10 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                       <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
 
                       <td className="py-2 px-4 border-b border-gray-200 flex space-x-4">
+                        <form action={redirectToManage}>
+                          <input name="itemId" className="hidden" value={user.id} />
+                          <button type="submit" className=" text-green-500">Manage</button>
+                        </form>
                         <form action={redirectToEdit}>
                           <input name="itemId" className="hidden" value={user.id} />
                           <button type="submit" className=" text-sky-500">Edit</button>
@@ -121,7 +131,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
                           <button type="submit" className="text-orange-600">Delete</button>
                         </form>
                       </td>
-                      
+
                     </tr>
                   ))}
                 </tbody>
@@ -134,6 +144,8 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
     </div >
   );
 }
+
+
 
 /*
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
