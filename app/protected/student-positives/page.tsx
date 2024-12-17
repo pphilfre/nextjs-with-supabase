@@ -56,15 +56,19 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
                   <div className="flex justify-between items-center">
                     <span>{student.first_name} {student.last_name}</span>
                     <span className="text-sm text-gray-500">Student Positives: </span>
-                    {student.positives.map((positive: any, index: number) => (
-                      <li key={index} className="border-b py-2">
-                        <div className="flex justify-between items-center">
-                          <span>+{positive.points}</span>
-                          <span>{positive.message}</span>
-                          <span>{positive.date_assigned}</span>
-                        </div>
-                      </li>
-                    ))}
+                    {student.positives ? (
+                      student.positives.map((positive: any, index: number) => (
+                        <li key={index} className="border-b py-2">
+                          <div className="flex justify-between items-center">
+                            <span>+{positive.points}</span>
+                            <span>{positive.message}</span>
+                            <span>{positive.date_assigned}</span>
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <p>No positives available.</p>
+                    )}
                   </div>
                 </li>
               ))}
