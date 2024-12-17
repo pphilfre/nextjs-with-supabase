@@ -60,7 +60,7 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
                       student.negatives.map((positive: any, index: number) => (
                         <li key={index} className="border-b py-2">
                           <div className="items-center">
-                            <li className="text-green-600">+{positive.points ? positive.points : ("0")}</li>
+                            <li className="text-red-600">-{positive.points ? positive.points : ("0")}</li>
                             <li>{positive.message ? positive.message : ("No message")}</li>
                             <li>{positive.date_assigned ? positive.date_assigned : ("No date")}</li>
                           </div>
