@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import React from 'react';
 
-export default async function StudentBehaviourPage(props: { searchParams: Promise<Message> }) {
+export default async function StudentPositivesPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   const registeredUsers = await getUsersAction();
   if (registeredUsers == null) {
