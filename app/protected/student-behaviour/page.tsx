@@ -49,7 +49,6 @@ export default async function StudentBehaviourPage(props: { searchParams: Promis
         </aside>
         <main className="flex-1 bg-gray-100 p-6">
           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
-            <h2 className="text-xl font-semibold text-gray-800">Student Behaviour</h2>
             <ul className="mt-4 text-gray-600">
               {registeredUsers.props?.data.map((student: any) => (
                 <li key={student.id} className="border-b py-2">

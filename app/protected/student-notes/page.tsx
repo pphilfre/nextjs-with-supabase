@@ -55,7 +55,6 @@ export default async function StudentNotesPage(props: { searchParams: Promise<Me
                 <li key={student.id} className="border-b py-2">
                   <div className="flex justify-between items-center">
                     <span>{student.first_name} {student.last_name}</span>
-                    <span className="text-sm text-gray-500">Student Notes: </span>
                     {student.notes ? (
                       student.notes.map((positive: any, index: number) => (
                         <li key={index} className="border-b py-2">
