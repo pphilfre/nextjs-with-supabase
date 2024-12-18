@@ -9,10 +9,13 @@ import { useSearchParams } from 'next/navigation'
 
 export default function StudentView() {
     const [studentData, setStudentData] = useState<Student[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string | null>(null);   
+    useEffect(() => {
+        const searchParams = useSearchParams();
+        setSearchQuery(searchParams ? searchParams.get('q') : null)
+    }, []);
+    
 
-    const searchParams = useSearchParams();
-
-    const searchQuery = searchParams && searchParams.get('q');
 
     useEffect(() => {
         const handleSearch = () => {
