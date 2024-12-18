@@ -7,7 +7,7 @@ interface iDefault {
     defaultString: string | null;
 }
 
-export const searchBar = ({ defaultString }: iDefault) => {
+export default function SearchBar({ defaultString }: iDefault) {
     const router = useRouter();
     const [inputValue, setValue] = useState(defaultString);
 
