@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ProfileCard } from "./student-card";
 import SearchBar from "./search-bar";
 import { data, Student } from "@/utils/studentData";
-import { useSearchParams } from 'next/navigation'
 
 interface StudentViewProps {
     searchQuery: string | null;
