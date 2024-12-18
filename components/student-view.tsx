@@ -6,14 +6,12 @@ import SearchBar from "./search-bar";
 import { data, Student } from "@/utils/studentData";
 import { useSearchParams } from 'next/navigation'
 
+interface StudentViewProps {
+    searchQuery: string | null;
+  }
 
-export default function StudentView() {
+export default function StudentView({ searchQuery }: StudentViewProps) {
     const [studentData, setStudentData] = useState<Student[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string | null>(null);   
-    useEffect(() => {
-        const searchParams = useSearchParams();
-        setSearchQuery(searchParams ? searchParams.get('q') : null)
-    }, []);
     
 
 
