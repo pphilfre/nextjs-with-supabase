@@ -8,7 +8,7 @@ interface iDefault {
 }
 
 export default function SearchBar({ defaultString }: iDefault) {
-    
+
     let inputValue = "";
 
     const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,15 +34,15 @@ export default function SearchBar({ defaultString }: iDefault) {
 
             <input type="text"
 
-                id="inputId"
+                   id="inputId"
 
-                placeholder="Enter your keywords"
+                   placeholder="Enter your keywords"
 
-                defaultValue={inputValue ?? ""} onChange={HandleChange}
+                   defaultValue={inputValue ?? ""} onChange={HandleChange}
 
-                onKeyDown={handleKeyPress}
+                   onKeyDown={handleKeyPress}
 
-                className="bg-[transparent] outline-none border-none w-full py-3 pl-2 pr-3" />
+                   className="bg-[transparent] outline-none border-none w-full py-3 pl-2 pr-3" />
 
 
         </div>)

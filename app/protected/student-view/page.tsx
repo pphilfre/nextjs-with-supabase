@@ -2,7 +2,7 @@ import StudentView from "@/components/student-view";
 
 
 interface StudentViewProps {
-  searchQuery: string | null;
+    searchQuery: string | null;
 }
 
 

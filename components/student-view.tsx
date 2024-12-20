@@ -1,59 +1,72 @@
-import { ProfileCard } from "./student-card";
+import {ProfileCard} from "./student-card";
 import SearchBar from "./search-bar";
-import { data, Student } from "@/utils/studentData";
-import { getUsersAction } from "@/app/actions";
+import {data, Student} from "@/utils/studentData";
+import {getUsersAction} from "@/app/actions";
 
 
 interface StudentViewProps {
     searchQuery: string | null;
-  }
+}
 
 export default async function StudentView(studentView: StudentViewProps) {
-    
+
     const registeredUsers = await getUsersAction();
     const searchQuery = studentView.searchQuery;
 
 
 
+    const isListed = (user : Student[]) => {
 
-    const findUser = data.filter((user) => {
+        return data.filter((user) => {
 
-        if (searchQuery) {
+            if (searchQuery) {
+                console.log("Search Query: ", searchQuery);
+                return (
 
-            return (
+                    user.id.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    user.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase())
+                );
 
-                user.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            } else {
+                console.log("No search Query");
+                // If no search query, return the original data
 
-                user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                return true;
 
-                user.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            }
+        });
 
-                user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase())
 
-            );
 
-        } else {
 
-            // If no search query, return the original data
 
-            return true;
+    }
 
-        }
-    });
 
-    
     let studentData : Student[] = [];
 
+    const studentsFitSearch = isListed(data);
+
+    if (studentData) {
+        console.log("Student Data: ", studentsFitSearch);
+        studentData = studentsFitSearch;
+    }
+
+    /*
     registeredUsers.props?.data.forEach(student => {
-        const fitsSearch = findUser.find(student);
+        const fitsSearch = isListed(student);
         if (fitsSearch) {
-            studentData.push(student);
+            console.log("Fits search: ", fitsSearch);
+            studentData = fitsSearch;
+        } else {
+            console.log("Doesnt fit search: ", fitsSearch)
         }
     });
-
-
+    */
 
     const totalStudents = studentData.length;
 
