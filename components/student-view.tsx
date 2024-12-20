@@ -2,6 +2,7 @@ import {ProfileCard} from "./student-card";
 import SearchBar from "./search-bar";
 import {data, Student} from "@/utils/studentData";
 import {getUsersAction} from "@/app/actions";
+import { redirect } from "next/navigation";
 
 
 interface StudentViewProps {
@@ -13,6 +14,10 @@ export default async function StudentView(studentView: StudentViewProps) {
     const registeredUsers = await getUsersAction();
     const searchQuery = studentView.searchQuery;
 
+    const newUser = async (_: FormData) => {
+        "use server";
+        redirect("/create-student");
+      }
 
 
     const isListed = (user : Student[]) => {
@@ -73,7 +78,13 @@ export default async function StudentView(studentView: StudentViewProps) {
     return (
 
         <section className="h-[100vh] w-screen px-[2rem] md:px-[6rem] mt-[100px]">
-
+            <form action={newUser}>
+                <button
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  type="submit">
+                  Add User
+                </button>
+              </form>
             <p className="mb-10 ">Showing {totalStudents} {totalStudents > 1 ? "Students" : "Student"}</p>
             <SearchBar defaultString={searchQuery} />
 
