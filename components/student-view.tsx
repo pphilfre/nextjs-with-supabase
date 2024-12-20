@@ -1,57 +1,58 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import { ProfileCard } from "./student-card";
 import SearchBar from "./search-bar";
 import { data, Student } from "@/utils/studentData";
+import { getUsersAction } from "@/app/actions";
+
 
 interface StudentViewProps {
     searchQuery: string | null;
   }
 
-export default function StudentView({ searchQuery }: StudentViewProps) {
-    const [studentData, setStudentData] = useState<Student[]>([]);
+export default async function StudentView(studentView: StudentViewProps) {
     
+    const registeredUsers = await getUsersAction();
+    const searchQuery = studentView.searchQuery;
 
 
-    useEffect(() => {
-        const handleSearch = () => {
-            // Filter the data based on search query
-
-            const findUser = data.filter((user) => {
-
-                if (searchQuery) {
-
-                    return (
-
-                        user.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                        user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                        user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-
-                        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-
-                        user.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
-
-                        user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase())
-
-                    );
-
-                } else {
-
-                    // If no search query, return the original data
-
-                    return true;
-
-                }
-            });
-
-            setStudentData(findUser);
-
-        };
 
 
-        handleSearch();
-    }, [searchQuery]);
+    const findUser = data.filter((user) => {
+
+        if (searchQuery) {
+
+            return (
+
+                user.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+
+                user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+
+                user.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
+
+                user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase())
+
+            );
+
+        } else {
+
+            // If no search query, return the original data
+
+            return true;
+
+        }
+    });
+
+    
+    let studentData : Student[] = [];
+
+    registeredUsers.props?.data.forEach(student => {
+        const fitsSearch = findUser.find(student);
+        if (fitsSearch) {
+            studentData.push(student);
+        }
+    });
+
 
 
     const totalStudents = studentData.length;

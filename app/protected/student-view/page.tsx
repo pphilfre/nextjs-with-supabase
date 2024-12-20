@@ -1,14 +1,14 @@
 import StudentView from "@/components/student-view";
 
 
-interface Search {
-  q: string;
+interface StudentViewProps {
+  searchQuery: string | null;
 }
 
 
-export default async function StudentViewPage(props: { q: Promise<Search> }) {
-    const searchParams = await props.q;
+export default async function StudentViewPage(props: { searchParams: Promise<StudentViewProps> }) {
+    const searchParams = (await props.searchParams).searchQuery;
 
-    return <StudentView searchQuery={searchParams.q} />;
+    return <StudentView searchQuery={searchParams}/>;
 
 }

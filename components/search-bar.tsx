@@ -1,24 +1,23 @@
 "use client";
-import { useRouter } from "next/router";
 import { Search } from "lucide-react";
-import { useState, ChangeEvent } from "react";
+import { redirect } from "next/navigation";
+import React from "react";
 
 interface iDefault {
     defaultString: string | null;
 }
 
 export default function SearchBar({ defaultString }: iDefault) {
-    const router = useRouter();
-    const [inputValue, setValue] = useState(defaultString);
+    
+    let inputValue = "";
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-        setValue(inputValue);
+    const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        inputValue = e.target.value;
     }
 
     const handleSearch = () => {
-        if (inputValue) router.push(`/?q=${inputValue}`);
-        if (!inputValue) router.push(`/`);
+        if (inputValue) redirect('student-view?searchQuery=' + inputValue);
+        if (!inputValue) redirect('student-view');
     }
 
     const handleKeyPress = (event: { key: any; }) => {
@@ -39,7 +38,7 @@ export default function SearchBar({ defaultString }: iDefault) {
 
                 placeholder="Enter your keywords"
 
-                value={inputValue ?? ""} onChange={handleChange}
+                defaultValue={inputValue ?? ""} onChange={HandleChange}
 
                 onKeyDown={handleKeyPress}
 
