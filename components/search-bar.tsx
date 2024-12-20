@@ -38,7 +38,7 @@ export default function SearchBar({ defaultString }: iDefault) {
 
                    placeholder="Enter your keywords"
 
-                   defaultValue={inputValue ?? ""} onChange={HandleChange}
+                   defaultValue={inputValue ?? defaultString ?? ""} onChange={HandleChange}
 
                    onKeyDown={handleKeyPress}
 
