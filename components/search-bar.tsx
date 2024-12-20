@@ -9,7 +9,7 @@ interface iDefault {
 
 export default function SearchBar({ defaultString }: iDefault) {
 
-    let inputValue = "";
+    let inputValue = defaultString ?? "";
 
     const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         inputValue = e.target.value;
