@@ -19,6 +19,7 @@ export default async function StudentView(studentView: StudentViewProps) {
         redirect("/create-student");
       }
 
+      if (registeredUsers == null) { return; }
 
     const isListed = (user : Student[]) => {
 
