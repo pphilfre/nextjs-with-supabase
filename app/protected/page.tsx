@@ -37,7 +37,11 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
     return redirect("/sign-in");
   }
 
+  const teachers = await supabase.from("users").select();
+
   let studentCount = registeredUsers?.props?.data.length;
+  let teacherCount = teachers?.data?.length;
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
       <div className="flex flex-1">
@@ -77,7 +81,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
               </div>
               <div className="ml-4">
                 <h2 className="text-xl font-semibold text-gray-800">Total Staff</h2>
-                <p className="text-gray-600">123</p>
+                <p className="text-gray-600">{teacherCount}</p>
               </div>
             </div>
           </div>
