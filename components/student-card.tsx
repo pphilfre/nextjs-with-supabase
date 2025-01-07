@@ -33,7 +33,7 @@ export const ProfileCard = (props: Student) => {
             <User />
 
 
-            <div className=" bg-slate-300 p-3">
+            <div className="p-3">
 
                 <h2 className="">Name: {first_name} {last_name}</h2>
                 <p>Id: {id}</p>

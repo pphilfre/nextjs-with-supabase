@@ -144,6 +144,19 @@ export const updateStudentAction = async (formData: FormData) => {
 
 };
 
+export const getTeachersAction = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('users')
+    .select();
+
+  if (error)
+    return { error: error.message }
+  else
+    return { props: { data } };
+}
+
+
 export const getUsersAction = async () => {
   const supabase = await createClient();
   const { data, error } = await supabase
