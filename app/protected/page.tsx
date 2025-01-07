@@ -55,11 +55,11 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
             </a>
             <div className="relative group">
               <button className="block w-full text-left py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
-                Users
+              Users
               </button>
-              <div className="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1">
-                <a href="#" className="block py-2 px-4 hover:bg-gray-200">Students</a>
-                <a href="#" className="block py-2 px-4 hover:bg-gray-200">Teachers</a>
+              <div className="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1 group-hover:delay-1000">
+              <a href="/students" className="block py-2 px-4 hover:bg-gray-200">Students</a>
+              <a href="/teachers" className="block py-2 px-4 hover:bg-gray-200">Teachers</a>
               </div>
             </div>
           </nav>
