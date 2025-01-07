@@ -66,9 +66,9 @@ export default function Home() {
             We are a dedicated team committed to providing the best tools for managing educational institutions. Our mission is to simplify administrative tasks and enhance communication between teachers, students, and parents.
           </p>
           <div className="flex justify-center space-x-4">
-            <img src="/app/images/team1.jpg" alt="Team Member 1" className="w-24 h-24 rounded-full" />
-            <img src="/images/team1.jpg" alt="Team Member 2" className="w-24 h-24 rounded-full" />
-            <img src="/images/team1.jpg" alt="Team Member 3" className="w-24 h-24 rounded-full" />
+            <img src="/images/team1.jpg" alt="Team Member 1" className="w-24 h-24 rounded-full" />
+            <img src="/images/team2.jpg" alt="Team Member 2" className="w-24 h-24 rounded-full" />
+            <img src="/images/team3.jpg" alt="Team Member 3" className="w-24 h-24 rounded-full" />
           </div>
         </div>
       </section>
