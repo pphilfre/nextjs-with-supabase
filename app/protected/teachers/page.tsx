@@ -1,129 +1,145 @@
-import { FormMessage, Message } from "@/components/form-message";
-import { getUsersAction, deleteStudent } from "@/app/actions";
-import { createClient } from "@/utils/supabase/server";
-import { InfoIcon, Users, UserCheck, User } from "lucide-react";
-import { redirect } from "next/navigation";
-import React from 'react';
+import TeacherView from "@/components/teacher-view";
 
-export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
-  const searchParams = await props.searchParams;
-  const registeredUsers = await getUsersAction();
-  if (registeredUsers == null) {
-    console.log("No users found");
-  }
-  const supabase = await createClient();
 
-  const redirectToManage = async (formData: FormData) => {
-    "use server";
-    redirect("/protected/student-actions?id=" + formData.get("itemId"));
-  }
+interface TeacherViewProps {
+    searchQuery: string | null;
+}
 
-  const redirectToEdit = async (formData: FormData) => {
-    "use server";
-    redirect("/edit-student?id=" + formData.get("itemId"));
-  }
+
+export default async function StudentViewPage(props: { searchParams: Promise<TeacherViewProps> }) {
+    const searchParams = (await props.searchParams).searchQuery;
+
+    return <TeacherView searchQuery={searchParams}/>;
+
+}
+
+
+// import { FormMessage, Message } from "@/components/form-message";
+// import { getUsersAction, deleteStudent } from "@/app/actions";
+// import { createClient } from "@/utils/supabase/server";
+// import { InfoIcon, Users, UserCheck, User } from "lucide-react";
+// import { redirect } from "next/navigation";
+// import React from 'react';
+
+// export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
+//   const searchParams = await props.searchParams;
+//   const registeredUsers = await getUsersAction();
+//   if (registeredUsers == null) {
+//     console.log("No users found");
+//   }
+//   const supabase = await createClient();
+
+//   const redirectToManage = async (formData: FormData) => {
+//     "use server";
+//     redirect("/protected/student-actions?id=" + formData.get("itemId"));
+//   }
+
+//   const redirectToEdit = async (formData: FormData) => {
+//     "use server";
+//     redirect("/edit-student?id=" + formData.get("itemId"));
+//   }
   
 
-  const newUser = async (_: FormData) => {
-    "use server";
-    redirect("/create-student");
-  }
+//   const newUser = async (_: FormData) => {
+//     "use server";
+//     redirect("/create-student");
+//   }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+//   const {
+//     data: { user },
+//   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/sign-in");
-  }
+//   if (!user) {
+//     return redirect("/sign-in");
+//   }
 
-  let studentCount = registeredUsers?.props?.data.length;
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
-      <div className="flex flex-1">
-        <aside className="w-1/5 bg-white shadow-md h-screen">
-          <div className="p-4">
-            <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-          </div>
-          <nav className="mt-6">
-            <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
-              Home
-            </a>
-            <div className="relative group">
-              <button className="block w-full text-left py-2.5 px-4 rounded transition duration-200 bg-gray-200 text-gray-900">
-                Users
-              </button>
-              <div className="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1">
-                <a href="#" className="block py-2 px-4 hover:bg-gray-200">Students</a>
-                <a href="#" className="block py-2 px-4 hover:bg-gray-200">Teachers</a>
-              </div>
-            </div>
-          </nav>
-        </aside>
-        <main className="flex-1 bg-gray-100 p-6">
-          <div className="bg-white p-6 rounded-lg shadow-md flex-1">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
-              <form action={newUser}>
-                <button
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  type="submit">
-                  Add User
-                </button>
-              </form>
-            </div>
-            <ul className="mt-4 text-gray-600">
-              <table className="min-w-full bg-white">
-                <thead>
-                  <tr>
-                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                      Tutor Group
-                    </th>
-                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white">
-                  {registeredUsers?.props?.data.map((user) => (
-                    <tr key={user.id}>
-                      <td className="py-2 px-4 border-b border-gray-200">{user.first_name} {user.last_name}</td>
-                      <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
-                      <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
+//   let studentCount = registeredUsers?.props?.data.length;
+//   return (
+//     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
+//       <div className="flex flex-1">
+//         <aside className="w-1/5 bg-white shadow-md h-screen">
+//           <div className="p-4">
+//             <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+//           </div>
+//           <nav className="mt-6">
+//             <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
+//               Home
+//             </a>
+//             <div className="relative group">
+//               <button className="block w-full text-left py-2.5 px-4 rounded transition duration-200 bg-gray-200 text-gray-900">
+//                 Users
+//               </button>
+//               <div className="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1">
+//                 <a href="#" className="block py-2 px-4 hover:bg-gray-200">Students</a>
+//                 <a href="#" className="block py-2 px-4 hover:bg-gray-200">Teachers</a>
+//               </div>
+//             </div>
+//           </nav>
+//         </aside>
+//         <main className="flex-1 bg-gray-100 p-6">
+//           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
+//             <div className="flex justify-between items-center">
+//               <h2 className="text-xl font-semibold text-gray-800">Registered Users</h2>
+//               <form action={newUser}>
+//                 <button
+//                   className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+//                   type="submit">
+//                   Add User
+//                 </button>
+//               </form>
+//             </div>
+//             <ul className="mt-4 text-gray-600">
+//               <table className="min-w-full bg-white">
+//                 <thead>
+//                   <tr>
+//                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+//                       Name
+//                     </th>
+//                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+//                       Email
+//                     </th>
+//                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+//                       Tutor Group
+//                     </th>
+//                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
+//                       Actions
+//                     </th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="bg-white">
+//                   {registeredUsers?.props?.data.map((user) => (
+//                     <tr key={user.id}>
+//                       <td className="py-2 px-4 border-b border-gray-200">{user.first_name} {user.last_name}</td>
+//                       <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
+//                       <td className="py-2 px-4 border-b border-gray-200">{user.tutor_group}</td>
 
-                      <td className="py-2 px-4 border-b border-gray-200 flex space-x-4">
-                        <form action={redirectToManage}>
-                          <input name="itemId" className="hidden" value={user.id} />
-                          <button type="submit" className=" text-green-500">Manage</button>
-                        </form>
-                        <form action={redirectToEdit}>
-                          <input name="itemId" className="hidden" value={user.id} />
-                          <button type="submit" className=" text-sky-500">Edit</button>
-                        </form>
-                        <form action={deleteStudent}>
-                          <input name="itemId" className="hidden" value={user.id} />
-                          <button type="submit" className="text-orange-600">Delete</button>
-                        </form>
-                      </td>
+//                       <td className="py-2 px-4 border-b border-gray-200 flex space-x-4">
+//                         <form action={redirectToManage}>
+//                           <input name="itemId" className="hidden" value={user.id} />
+//                           <button type="submit" className=" text-green-500">Manage</button>
+//                         </form>
+//                         <form action={redirectToEdit}>
+//                           <input name="itemId" className="hidden" value={user.id} />
+//                           <button type="submit" className=" text-sky-500">Edit</button>
+//                         </form>
+//                         <form action={deleteStudent}>
+//                           <input name="itemId" className="hidden" value={user.id} />
+//                           <button type="submit" className="text-orange-600">Delete</button>
+//                         </form>
+//                       </td>
 
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <FormMessage message={searchParams} />
-            </ul>
-          </div>
-        </main>
-      </div >
-    </div >
-  );
-}
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//               <FormMessage message={searchParams} />
+//             </ul>
+//           </div>
+//         </main>
+//       </div >
+//     </div >
+//   );
+// }
 
 
 
