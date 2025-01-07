@@ -16,8 +16,8 @@ export default function SearchBar({ defaultString }: iDefault) {
     }
 
     const handleSearch = () => {
-        if (inputValue) redirect('student-view?searchQuery=' + inputValue);
-        if (!inputValue) redirect('student-view');
+        if (inputValue) redirect('?searchQuery=' + inputValue);
+        if (!inputValue) redirect('/');
     }
 
     const handleKeyPress = (event: { key: any; }) => {
