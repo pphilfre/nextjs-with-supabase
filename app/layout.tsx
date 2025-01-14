@@ -37,13 +37,7 @@ export default function RootLayout({
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
                 <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
                   <div className="flex gap-5 items-center font-semibold">
-                    <Image  
-                      src="/public/favicon.png" 
-                      alt="Logo" 
-                      width={20} 
-                      height={20} 
-                    />
-                    <Link href={"/"}>School Manager</Link>
+                    <img src="/images/favicon.png" alt="Logo" className="w-24 h-24" />
                   </div>
                   {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                 </div>
