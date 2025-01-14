@@ -1,3 +1,4 @@
+import DashboardSidebar from "@/components/dashboard";
 import TeacherView from "@/components/teacher-view";
 
 
@@ -9,7 +10,16 @@ interface TeacherViewProps {
 export default async function StudentViewPage(props: { searchParams: Promise<TeacherViewProps> }) {
     const searchParams = (await props.searchParams).searchQuery;
 
-    return <TeacherView searchQuery={searchParams}/>;
+    return (
+      <div className="flex flex-col min-h-screen bg-gray-100 w-screen">
+                  <div className="flex flex-1">
+                      <DashboardSidebar pageSelected="2" />
+                      <main className="flex-1">
+                          <TeacherView searchQuery={searchParams} />
+                      </main>
+                  </div>
+              </div>
+    );
 
 }
 

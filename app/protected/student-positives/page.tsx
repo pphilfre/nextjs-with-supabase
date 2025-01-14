@@ -3,6 +3,7 @@ import { getUsersAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import React from 'react';
+import DashboardSidebar from "@/components/dashboard";
 
 export default async function StudentPositivesPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -25,28 +26,7 @@ export default async function StudentPositivesPage(props: { searchParams: Promis
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen">
       <div className="flex flex-1">
-        <aside className="w-1/5 bg-white shadow-md h-screen">
-          <div className="p-4">
-            <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-          </div>
-          <nav className="mt-6">
-            <a href="/protected" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
-              Home
-            </a>
-            <div className="relative group">
-              <button className="block w-full text-left py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900 bg-gray-200 text-gray-900">
-                Users
-              </button>
-              <div className="absolute hidden group-hover:block bg-white shadow-lg rounded mt-1">
-                <a href="/protected/student-behaviour" className="block py-2 px-4 hover:bg-gray-200 bg-gray-200 text-gray-900">Students</a>
-                <a href="#" className="block py-2 px-4 hover:bg-gray-200">Teachers</a>
-              </div>
-            </div>
-            <a href="#" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-gray-900">
-              Settings
-            </a>
-          </nav>
-        </aside>
+        <DashboardSidebar pageSelected={"1"} />
         <main className="flex-1 bg-gray-100 p-6">
           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
             <h2 className="text-xl font-semibold text-gray-800">Student Positives</h2>
