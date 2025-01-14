@@ -1,3 +1,6 @@
+<p align="left">
+   <img src="https://nextjs-with-supabase-flame-two.vercel.app/favicon.ico" alt="logo">
+</p>
 <p align="left"><h1 align="left">School Manager</h1></p>
 <p align="left">
 	<em><code>A free easy to use management system</code></em>
