@@ -26,7 +26,7 @@ export default async function StudentNotesPage(props: { searchParams: Promise<Me
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen">
       <div className="flex flex-1">
-        <DashboardSidebar pageSelected={1} />
+        <DashboardSidebar pageSelected={"1"} />
         <main className="flex-1 bg-gray-100 p-6">
           <div className="bg-white p-6 rounded-lg shadow-md flex-1">
             <h2 className="text-xl font-semibold text-gray-800">Student Notes</h2>

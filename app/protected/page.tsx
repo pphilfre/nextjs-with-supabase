@@ -46,7 +46,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
       <div className="flex flex-1">
-        <DashboardSidebar pageSelected={0} />
+        <DashboardSidebar pageSelected={"0"} />
         <main className="flex-1 bg-gray-100 p-6">
           <div className="flex flex-wrap gap-6 mb-6">
             <div className="flex items-center bg-white p-4 rounded-lg shadow-md w-1/2">
