@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { InfoIcon, Users, UserCheck, User } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from 'react';
+import DashboardSidebar from "@/components/dashboard";
 
 export default async function ProtectedPage(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -45,22 +46,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-screen	">
       <div className="flex flex-1">
-        <aside className="w-1/5 bg-white shadow-md h-screen">
-          <div className="p-4">
-            <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-          </div>
-          <nav className="mt-6">
-            <a href="#" className="block py-2.5 px-4 rounded transition duration-200 bg-gray-200 text-gray-900 font-bold">
-              Home
-            </a>
-            <a href="/protected/students/" className="block py-2.5 px-4 rounded transition duration-200 bg-gray-200 text-gray-900 font-bold">
-             Students
-            </a>
-            <a href="/protected/teachers/" className="block py-2.5 px-4 rounded transition duration-200 bg-gray-200 text-gray-900 font-bold">
-              Teachers
-            </a>
-          </nav>
-        </aside>
+        <DashboardSidebar pageSelected={0} />
         <main className="flex-1 bg-gray-100 p-6">
           <div className="flex flex-wrap gap-6 mb-6">
             <div className="flex items-center bg-white p-4 rounded-lg shadow-md w-1/2">
