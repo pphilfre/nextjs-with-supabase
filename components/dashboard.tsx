@@ -15,7 +15,8 @@ export default function DashboardSidebar(page: DashboardSidebarProps) {
 
         pageInt = parseInt(p);
     } catch {
-        return;
+        console.log("Error parsing page number");
+        pageInt = 0;
     }
     if (pageInt <= 5 && pageInt >= 1) {
         setShowStudentOptions(true);
