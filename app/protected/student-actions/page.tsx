@@ -5,7 +5,6 @@ import { createClient } from "@/utils/supabase/server";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { redirect } from "next/navigation";
-import { useState } from 'react';
 import DashboardSidebar from "@/components/dashboard";
 
 type StudentMessage = Message & { id: string };
@@ -26,7 +25,6 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
     const searchParams = await props.searchParams;
     const supabase = await createClient();
 
-    const [behaviorType, setBehaviorType] = useState<string>('');
 
     const handleBehaviorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setBehaviorType(event.target.value);
@@ -72,12 +70,12 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
                                     <option value="note">Note</option>
                                 </select>
                             </div>
-                            {behaviorType !== 'note' && (
+                            
                             <div>
                                 <Label htmlFor="points" className="block text-sm font-medium text-gray-700">Points</Label>
                                 <Input type="number" name="points" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                             </div>
-                            )}
+                            
                             <div>
                                 <Label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</Label>
                                 <Input type="text" name="message" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
