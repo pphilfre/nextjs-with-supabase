@@ -27,6 +27,7 @@ export default async function StudentView(studentView: StudentViewProps) {
 
             if (searchQuery) {
                 console.log("Search Query: ", searchQuery);
+                var teacherFullName = user.first_name.toString().toLowerCase() + " " + user.last_name.toString().toLowerCase();
                 return (
 
                     user.id.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -34,7 +35,8 @@ export default async function StudentView(studentView: StudentViewProps) {
                     user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     user.phone_number.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     user.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase())
+                    user.tutor_group.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    teacherFullName.includes(searchQuery.toLowerCase())
                 );
 
             } else {
