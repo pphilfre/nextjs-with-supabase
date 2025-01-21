@@ -6,6 +6,7 @@
 	<em><code>A free easy to use management system</code></em>
 </p>
 <p align="left">
+<a href="https://app.deepsource.com/gh/pphilfre/nextjs-with-supabase/" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://app.deepsource.com/gh/pphilfre/nextjs-with-supabase.svg/?label=active+issues&show_trend=true&token=tmIHpYY8Ny_9in_VBFJ4BRQQ"/></a>
 	<img src="https://img.shields.io/github/license/pphilfre/nextjs-with-supabase?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=ff0000" alt="license">
 	<img src="https://img.shields.io/github/last-commit/pphilfre/nextjs-with-supabase?style=for-the-badge&logo=git&logoColor=white&color=ff0000" alt="last-commit">
 	<img src="https://img.shields.io/github/languages/top/pphilfre/nextjs-with-supabase?style=for-the-badge&color=ff0000" alt="repo-top-language">
