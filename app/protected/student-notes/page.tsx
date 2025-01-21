@@ -36,13 +36,13 @@ export default async function StudentNotesPage(props: { searchParams: Promise<Me
                   <div className="flex justify-between items-center">
                     <span>{student.first_name} {student.last_name}</span>
                     {student.notes ? (
-                      student.notes.map((positive: any, index: number) => (
-                        <li key={index} className="border-b py-2">
-                          <div className="items-center">
-                            <li>{positive.message ? positive.message : ("No message")}</li>
-                            <li>{positive.date_assigned ? positive.date_assigned : ("No date")}</li>
-                          </div>
-                        </li>
+                      student.notes.map((note: any, index: number) => (
+                        <div key={index} className="border-b py-2">
+                              <div className="items-center">
+                                <p>{note.message ? note.message : "No message"}</p>
+                                <p>{note.date_assigned ? note.date_assigned : "No date"}</p>
+                              </div>
+                            </div>
                       ))
                     ) : (
                       <p>No notes available.</p>
