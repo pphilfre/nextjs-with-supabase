@@ -51,7 +51,7 @@ export default function DashboardSidebar({ pageSelected }: DashboardSidebarProps
                         <a href="/protected/student-notes" className={`block py-2.5 px-4 rounded transition ${pageSelected === "3" ? 'duration-200 bg-gray-200 text-gray-900 font-bold' : 'duration-750 hover:bg-gray-200 hover:text-gray-900'} `}>
                             Notes
                         </a>
-                        <a href="/protected/student-behaviours" className={`block py-2.5 px-4 rounded transition ${pageSelected === "4" ? 'duration-200 bg-gray-200 text-gray-900 font-bold' : 'duration-750 hover:bg-gray-200 hover:text-gray-900'} `}>
+                        <a href="/protected/student-behaviour" className={`block py-2.5 px-4 rounded transition ${pageSelected === "4" ? 'duration-200 bg-gray-200 text-gray-900 font-bold' : 'duration-750 hover:bg-gray-200 hover:text-gray-900'} `}>
                             Behaviour
                         </a>
                         <a href="/protected/student-positives" className={`block py-2.5 px-4 rounded transition ${pageSelected === "5" ? 'duration-200 bg-gray-200 text-gray-900 font-bold' : 'duration-750 hover:bg-gray-200 hover:text-gray-900'} `}>
