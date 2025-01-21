@@ -1,4 +1,6 @@
 "use client";
+import { encodedRedirect } from '@/utils/utils';
+import { redirect } from 'next/dist/server/api-utils';
 import { useState, useEffect } from 'react';
 
 interface DashboardSidebarProps {
@@ -35,7 +37,11 @@ export default function DashboardSidebar({ pageSelected }: DashboardSidebarProps
                     className={`block py-2.5 px-4 rounded transition ${pageSelected === "1" ? 'duration-200 bg-gray-200 text-gray-900 font-bold' : 'duration-750 hover:bg-gray-200 hover:text-gray-900'} `}
                     onClick={(e) => {
                         e.preventDefault();
+                        if (showStudentOptions) {
+                            window.location.href = "/protected/students/";
+                        } else {
                         setShowStudentOptions(!showStudentOptions);
+                        }
                     }}
                 >
                     Students
