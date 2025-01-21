@@ -26,9 +26,6 @@ export default async function EditStudentPage(props: { searchParams: Promise<Stu
     const supabase = await createClient();
 
 
-    const handleBehaviorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setBehaviorType(event.target.value);
-    };
 
     const {
         data: { user },
