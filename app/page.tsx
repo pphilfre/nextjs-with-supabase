@@ -33,7 +33,7 @@ export default function Home() {
                 fillRule="evenodd"
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clipRule="evenodd"
-              ></path>
+               />
             </svg>
           </a>
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -97,9 +97,9 @@ export default function Home() {
               <div className="h-full bg-white dark:bg-gray-900 p-8 rounded shadow-lg flex flex-col">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-3">Beginner</h2>
                 <p className="leading-relaxed text-base text-gray-600 dark:text-gray-400 mb-4">
-                  ✅ Feature 1 <br></br>
-                  ✅ Feature 2 <br></br>
-                  ✅ Feature 3 <br></br>
+                  ✅ Feature 1 <br />
+                  ✅ Feature 2 <br />
+                  ✅ Feature 3 <br />
                 </p>
                 <div className="mt-auto">
                   <p className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -117,10 +117,10 @@ export default function Home() {
                 <div className="absolute top-0 right-0 mt-2 mr-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">Most Bought</div>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-3">Pro</h2>
                 <p className="leading-relaxed text-base text-gray-600 dark:text-gray-400 mb-4">
-                  ✅ Feature 1 <br></br>
-                  ✅ Feature 2 <br></br>
-                  ✅ Feature 3 <br></br>
-                  ✅ Feature 4 <br></br>
+                  ✅ Feature 1 <br />
+                  ✅ Feature 2 <br />
+                  ✅ Feature 3 <br />
+                  ✅ Feature 4 <br />
                 </p>
                 <div className="mt-auto">
                   <p className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -137,11 +137,11 @@ export default function Home() {
               <div className="h-full bg-white dark:bg-gray-900 p-8 rounded shadow-lg flex flex-col">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-3">Enterprise</h2>
                 <p className="leading-relaxed text-base text-gray-600 dark:text-gray-400 mb-4">
-                  ✅ Feature 1 <br></br>
-                  ✅ Feature 2 <br></br>
-                  ✅ Feature 3 <br></br>
-                  ✅ Feature 4 <br></br>
-                  ✅ Feature 5 <br></br>
+                  ✅ Feature 1 <br />
+                  ✅ Feature 2 <br />
+                  ✅ Feature 3 <br />
+                  ✅ Feature 4 <br />
+                  ✅ Feature 5 <br />
                 </p>
                 <div className="mt-auto">
                   <p className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
