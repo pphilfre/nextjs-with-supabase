@@ -32,7 +32,7 @@ export const assignStudentAction = async (formData: FormData) => {
   }
 
   const supabase = await createClient();
-  const { data: data, error: _err } = await supabase
+  const { data, error: _err } = await supabase
     .from("students")
     .select()
     .eq('id', id)
