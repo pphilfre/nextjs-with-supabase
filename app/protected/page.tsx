@@ -10,7 +10,7 @@ export default async function ProtectedPage(props: { searchParams: Promise<Messa
   const searchParams = await props.searchParams;
   const registeredUsers = await getUsersAction();
   if (registeredUsers == null) {
-    console.log("No users found");
+    
   }
   const supabase = await createClient();
 

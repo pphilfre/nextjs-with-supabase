@@ -26,7 +26,7 @@ export default async function StudentView(studentView: StudentViewProps) {
         return data.filter((user) => {
 
             if (searchQuery) {
-                console.log("Search Query: ", searchQuery);
+                
                 var teacherFullName = user.first_name.toString().toLowerCase() + " " + user.last_name.toString().toLowerCase();
                 return (
 
@@ -40,7 +40,7 @@ export default async function StudentView(studentView: StudentViewProps) {
                 );
 
             } else {
-                console.log("No search Query");
+                
                 // If no search query, return the original data
 
                 return true;
@@ -60,7 +60,7 @@ export default async function StudentView(studentView: StudentViewProps) {
     const teacherFitsSearch = isListed(data);
 
     if (teacherData) {
-        console.log("Teacher Data: ", teacherFitsSearch);
+        
         teacherData = teacherFitsSearch;
     }
 

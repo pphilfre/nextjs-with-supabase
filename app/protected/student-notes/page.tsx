@@ -9,7 +9,7 @@ export default async function StudentNotesPage(props: { searchParams: Promise<Me
   const searchParams = await props.searchParams;
   const registeredUsers = await getUsersAction();
   if (registeredUsers == null) {
-    console.log("No users found");
+    
   }
   const supabase = await createClient();
 
